@@ -9,7 +9,8 @@ var models = require('./models/sampleData.js');
 var spotify = require('./controllers/spotifyController.js');
 
 var index = require('./routes/index');
-var users = require('./routes/users');
+var artists = require('./routes/artists');
+var albums = require('./routes/albums');
 
 var app = express();
 
@@ -22,7 +23,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-app.use('/users', users);
+app.use('/artists', artists);
+app.use('/albums', albums);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

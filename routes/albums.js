@@ -3,8 +3,8 @@ var router = express.Router();
 
 var spotify = require('../controllers/spotifyController.js');
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  spotify.getArtistById('0X380XXQSNBYuleKzav5UO')
+router.get('/get/:id', function(req, res, next) {
+  spotify.getArtistById(req.params.id)
     .then(function(artistRes){
       res.json(artistRes);
     });
@@ -12,3 +12,5 @@ router.get('/', function(req, res, next) {
 });
 
 module.exports = router;
+
+// 0X380XXQSNBYuleKzav5UO

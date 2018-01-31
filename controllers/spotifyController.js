@@ -13,14 +13,58 @@ spotifyApi.clientCredentialsGrant()
     console.log('Something went wrong when retrieving an access token', err);
   });
 
+// spotify methods
 module.exports = {
-  getArtistById: function(id, callback) {
-    spotifyApi.getArtist(id)
-    .then(function(data) {
-      callback(data.body)
-    }, function(err) {
-      console.error(err);
-      callback(err);
-    });
-  }
+  getArtistById: function(id) {
+    return new Promise(
+      function(resolve, reject) {
+        spotifyApi.getArtist(id)
+          .then(function(data) {
+            resolve(data.body);
+          })
+          .catch(function(error){
+            reject(error);
+          })
+      }
+    );
+  },
+  getRelatedArtists: function(id) {
+    return new Promise(
+      function(resolve, reject) {
+        spotifyApi.getArtistRelatedArtists(id)
+          .then(function(data) {
+            resolve(data.body);
+          })
+          .catch(function(error){
+            reject(error);
+          })
+      }
+    );
+  },
+  searchForArtists: function(searchTerm) {
+    return new Promise(
+      function(resolve, reject) {
+        spotifyApi.searchArtists(searchTerm)
+          .then(function(data) {
+            resolve(data.body);
+          })
+          .catch(function(error){
+            reject(error);
+          })
+      }
+    );
+  },
+  getAlbumById: function(id) {
+    return new Promise(
+      function(resolve, reject) {
+        spotifyApi.getAlbum(id)
+          .then(function(data) {
+            resolve(data.body);
+          })
+          .catch(function(error){
+            reject(error);
+          })
+      }
+    );
+  },
 };
