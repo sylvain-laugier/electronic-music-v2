@@ -3,14 +3,19 @@ var router = express.Router();
 
 var spotify = require('../controllers/spotifyController.js');
 /* GET home page. */
-router.get('/get/:id', function(req, res, next) {
-  spotify.getArtistById(req.params.id)
-    .then(function(artistRes){
-      res.json(artistRes);
+router.get('/get-spotify/:id', function(req, res, next) {
+  spotify.getAlbumById(req.params.id)
+    .then(function(albumRes){
+      res.json(albumRes);
     });
 
 });
 
-module.exports = router;
+router.get('/search-spotify/:searchTerm', function(req, res, next) {
+  spotify.searchForAlbums(req.params.searchTerm)
+    .then(function(albumRes){
+      res.json(albumRes);
+    });
 
-// 0X380XXQSNBYuleKzav5UO
+});
+module.exports = router;

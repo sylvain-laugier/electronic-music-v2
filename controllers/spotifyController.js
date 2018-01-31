@@ -33,7 +33,7 @@ module.exports = {
       function(resolve, reject) {
         spotifyApi.getArtistRelatedArtists(id)
           .then(function(data) {
-            resolve(data.body);
+            resolve(data.body.artists);
           })
           .catch(function(error){
             reject(error);
@@ -46,7 +46,7 @@ module.exports = {
       function(resolve, reject) {
         spotifyApi.searchArtists(searchTerm)
           .then(function(data) {
-            resolve(data.body);
+            resolve(data.body.artists);
           })
           .catch(function(error){
             reject(error);
@@ -60,6 +60,19 @@ module.exports = {
         spotifyApi.getAlbum(id)
           .then(function(data) {
             resolve(data.body);
+          })
+          .catch(function(error){
+            reject(error);
+          })
+      }
+    );
+  },
+  searchForAlbums: function(searchTerm) {
+    return new Promise(
+      function(resolve, reject) {
+        spotifyApi.searchAlbums(searchTerm)
+          .then(function(data) {
+            resolve(data.body.albums);
           })
           .catch(function(error){
             reject(error);

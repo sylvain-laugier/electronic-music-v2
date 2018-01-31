@@ -14,7 +14,7 @@ router.get('/get-spotify/:id', function(req, res, next) {
 router.get('/get-spotify-related/:id', function(req, res, next) {
   spotify.getRelatedArtists(req.params.id)
     .then(function(artistRes){
-      res.json(artistRes.artists);
+      res.json(artistRes);
     });
 
 });
@@ -22,11 +22,9 @@ router.get('/get-spotify-related/:id', function(req, res, next) {
 router.get('/search-spotify/:searchTerm', function(req, res, next) {
   spotify.searchForArtists(req.params.searchTerm)
     .then(function(artistRes){
-      res.json(artistRes.artists);
+      res.json(artistRes);
     });
 
 });
 
 module.exports = router;
-
-// 0X380XXQSNBYuleKzav5UO
