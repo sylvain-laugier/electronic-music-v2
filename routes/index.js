@@ -2,12 +2,10 @@ var express = require('express');
 var router = express.Router();
 
 var spotify = require('../controllers/spotifyController.js');
+var neo4j = require('../controllers/neo4JController.js');
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  spotify.getArtistById('0X380XXQSNBYuleKzav5UO')
-    .then(function(artistRes){
-      res.json(artistRes);
-    });
+router.get('/test', function(req, res, next) {
+  
 
 });
 

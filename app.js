@@ -4,8 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-const neo4j = require('neo4j-driver').v1;
-var models = require('./models/sampleData.js');
+
 var spotify = require('./controllers/spotifyController.js');
 
 var index = require('./routes/index');
@@ -36,8 +35,7 @@ app.use(function(req, res, next) {
 //Initiate database
 
 //connect to the database neo4j, has to used a 'bolt' url, whatever this is
-const driver = neo4j.driver('bolt://localhost:7687', neo4j.auth.basic("developer", "azerty"));
-const session = driver.session();
+
 /*
 models.createArtistNode('Artist',{name: 'Metallica', genre: 'Metal'}, session, function(proof){
   console.log(proof);

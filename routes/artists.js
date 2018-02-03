@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var spotify = require('../controllers/spotifyController.js');
+var neo4j = require('../controllers/neo4JController.js');
 /* GET home page. */
 router.get('/get-spotify/:id', function(req, res, next) {
   spotify.getArtistById(req.params.id)
@@ -26,5 +27,13 @@ router.get('/search-spotify/:searchTerm', function(req, res, next) {
     });
 
 });
+
+router.post('/addArtist', function(req, res, next) {
+  var property = req.body;
+  console.log(property);
+  neo4j.createArtistNode('Artist', property, function(result){
+    res.json(result);
+  });
+})
 
 module.exports = router;
