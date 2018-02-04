@@ -28,7 +28,24 @@ module.exports = {
       return callback(err);
     });
   },
-  getNodeRelationships: function(id,callback){}
+  getNodeRelationships: function(id,callback){
+    const session = driver.session();
+    const resultPromise = session.run(
+      `Match(n)-->(relation)
+      WHERE n._id = '${id}'
+      RETURN relation
+      `
+    );
+    resultPromise.then(result => {
+      session.close();
+      console.log(result);
+      const singleRecord = result.records[0];
+      const node = singleRecord.get(0);
+      return callback(node.properties);
+    }).catch(err => {
+      return callback(err);
+    });
+  },
   createArtistNode: function(label,property, callback){
     const session = driver.session();
     const resultPromise = session.run(

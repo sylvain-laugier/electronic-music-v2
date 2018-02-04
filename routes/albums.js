@@ -11,6 +11,13 @@ router.get('/:id', function(req, res, next) {
 
 });
 
+router.get('/relationships/:id', function(req, res, next) {
+  neo4j.getNodeRelationships(req.params.id, (result) => {
+    res.json(result);
+  })
+
+});
+
 router.get('/get-spotify/:id', function(req, res, next) {
   spotify.getAlbumById(req.params.id)
     .then(function(albumRes){
