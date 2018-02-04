@@ -14,7 +14,14 @@ module.exports = {
   createArtistNode: function(label,property, callback){
     const session = driver.session();
     const resultPromise = session.run(
-      `CREATE (a:${label} {spotify: {spotify}}) RETURN a`,
+      `CREATE (a:${label}
+        {url: $url,
+         genres: $genres,
+         _id: $_id,
+         image: $image,
+         name: $name,
+         popularity: $popularity
+         }) RETURN a`,
       new Artist(property)
     );
 
@@ -25,5 +32,8 @@ module.exports = {
       const node = singleRecord.get(0);
       return callback(node.properties);
     });
+  },
+  createArtistRelationship: function(){
+    return true;
   }
 };
