@@ -12,10 +12,23 @@ driver.onError = error => {
 };
 
 module.exports = {
-  getNodeById: function(id, type, callback){
+  getNodeByLabel: function(label, callback){
     const session = driver.session();
     const resultPromise = session.run(
-      `MATCH (n:${type})
+      `MATCH (n:${label})
+      RETURN n`
+    );
+    resultPromise.then(result => {
+      session.close();
+      return callback(result.records);
+    }).catch(err => {
+      return callback(err);
+    });
+  },
+  getNodeById: function(id, label, callback){
+    const session = driver.session();
+    const resultPromise = session.run(
+      `MATCH (n:${label})
       WHERE n._id = '${id}'
       RETURN n`
     );

@@ -4,6 +4,13 @@ var router = express.Router();
 var spotify = require('../controllers/spotifyController.js');
 var neo4j = require('../controllers/neo4JController.js');
 /* GET home page. */
+router.get('/', function(req, res, next) {
+  neo4j.getNodeByLabel('Artist', (result) => {
+    res.json(result);
+  })
+
+});
+
 router.get('/:id', function(req, res, next) {
   neo4j.getNodeById(req.params.id, 'Artist', (result) => {
     console.log(result);
