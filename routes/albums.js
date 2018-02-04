@@ -29,7 +29,7 @@ router.post('/add-album', function(req, res, next) {
 
 router.post('/add-album-relationship', function(req, res, next) {
   var property = req.body;
-  neo4j.createDryRelationship(property, function(result){
+  neo4j.createAlbumRelationship(property, function(result){
     res.json(result);
   });
 })

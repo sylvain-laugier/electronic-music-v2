@@ -73,6 +73,24 @@ module.exports = {
 
     resultPromise.then(result => {
       session.close();
+      console.log('dry relationship created ');
+      return callback(result.records[0]._fields[0].type);
+    }).catch(err => {
+      return callback(err);
+    });
+  },
+  createAlbumRelationship: function(property, callback){
+    const session = driver.session();
+    const resultPromise = session.run(
+      `MATCH (a:${property.source.label}),(b:${property.target.label})
+      WHERE a._id = '4m46Nl9vadXl7qgYf7kjwb' AND b._id = '7GbRsK5uQvjenixMQzz0mA'
+      CREATE (a)-[r:ALBUM_PATH{message: $messageProp}]->(b)`,
+      {messageProp: property.rel.message}
+    );
+
+    resultPromise.then(result => {
+      session.close();
+      console.log('album relationship created ');
       return callback(result.records[0]._fields[0].type);
     }).catch(err => {
       return callback(err);
