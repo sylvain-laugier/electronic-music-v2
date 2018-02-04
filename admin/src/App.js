@@ -1,23 +1,20 @@
 import React, { Component } from 'react';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
+import SearchWrapper from './components/SearchWrapper';
 import './App.css';
 
 class App extends Component {
-  state = {users: []}
-
-  componentDidMount() {
-    fetch('/users')
-      .then(res => res.json())
-      .then(users => this.setState({ users }));
-  }
 
   render() {
     return (
-      <div className="App">
-        <h1>Admin</h1>
-        {this.state.users.map(user =>
-          <div key={user.id}>{user.username}</div>
-        )}
-      </div>
+      <MuiThemeProvider>
+        <div className="App">
+          <h1>Admin</h1>
+          <SearchWrapper />
+        </div>
+      </MuiThemeProvider>
+
     );
   }
 }
