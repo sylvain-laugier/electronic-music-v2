@@ -1,13 +1,21 @@
 const neo4j = require('neo4j-driver').v1;
+const Artist = require('../models/Artist.js');
 
 const driver = neo4j.driver('bolt://localhost:7687', neo4j.auth.basic("developer", "azerty"));
-const session = driver.session();
+driver.onCompleted = () => {
+  console.log('connected to database');
+};
+
+driver.onError = error => {
+  console.log('couldnt connect to database', error);
+};
 
 module.exports = {
   createArtistNode: function(label,property, callback){
+    const session = driver.session();
     const resultPromise = session.run(
-      `CREATE (a:${label} {name: $name, genre: $genre}) RETURN a`,
-      property
+      `CREATE (a:${label} {spotify: {spotify}}) RETURN a`,
+      new Artist(property)
     );
 
     resultPromise.then(result => {

@@ -28,9 +28,8 @@ router.get('/search-spotify/:searchTerm', function(req, res, next) {
 
 });
 
-router.post('/addArtist', function(req, res, next) {
+router.post('/add-artist', function(req, res, next) {
   var property = req.body;
-  console.log(property);
   neo4j.createArtistNode('Artist', property, function(result){
     res.json(result);
   });

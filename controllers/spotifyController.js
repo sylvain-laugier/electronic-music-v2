@@ -10,7 +10,7 @@ spotifyApi.clientCredentialsGrant()
     spotifyApi.setAccessToken(data.body.access_token);
     console.log('connected to Spotify');
   }, function(err) {
-    console.log('Something went wrong when retrieving an access token', err);
+    console.log('Oups couldn\' connect to Spotify...', err);
   });
 
 // spotify methods
