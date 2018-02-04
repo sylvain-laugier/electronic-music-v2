@@ -44,9 +44,9 @@ module.exports = {
   getRelatedNodes: function(id,callback){
     const session = driver.session();
     const resultPromise = session.run(
-      `Match(n)-->(relation)
+      `Match(n)-->(related)
       WHERE n._id = '${id}'
-      RETURN relation
+      RETURN related
       `
     );
     resultPromise.then(result => {
