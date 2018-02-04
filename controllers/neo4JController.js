@@ -12,6 +12,23 @@ driver.onError = error => {
 };
 
 module.exports = {
+  getNodeById: function(id, type, callback){
+    const session = driver.session();
+    const resultPromise = session.run(
+      `MATCH (n:${type})
+      WHERE n._id = '${id}'
+      RETURN n`
+    );
+    resultPromise.then(result => {
+      session.close();
+      const singleRecord = result.records[0];
+      const node = singleRecord.get(0);
+      return callback(node.properties);
+    }).catch(err => {
+      return callback(err);
+    });
+  },
+  getNodeRelationships: function(id,callback){}
   createArtistNode: function(label,property, callback){
     const session = driver.session();
     const resultPromise = session.run(
@@ -83,8 +100,8 @@ module.exports = {
     const session = driver.session();
     const resultPromise = session.run(
       `MATCH (a:${property.source.label}),(b:${property.target.label})
-      WHERE a._id = '4m46Nl9vadXl7qgYf7kjwb' AND b._id = '7GbRsK5uQvjenixMQzz0mA'
-      CREATE (a)-[r:ALBUM_PATH{message: $messageProp}]->(b)`,
+      WHERE a._id = '${property.source._id}' AND b._id = '${property.target._id}'
+      CREATE (a)-[r:${property.rel.type}{message: $messageProp}]->(b)`,
       {messageProp: property.rel.message}
     );
 
