@@ -28,7 +28,7 @@ module.exports = {
       return callback(err);
     });
   },
-  getNodeRelationships: function(id,callback){
+  getRelatedNodes: function(id,callback){
     const session = driver.session();
     const resultPromise = session.run(
       `Match(n)-->(relation)
@@ -38,7 +38,23 @@ module.exports = {
     );
     resultPromise.then(result => {
       session.close();
-      console.log(result);
+      const singleRecord = result.records[0];
+      const node = singleRecord.get(0);
+      return callback(node.properties);
+    }).catch(err => {
+      return callback(err);
+    });
+  },
+  getNodeRelationships: function(id,callback){
+    const session = driver.session();
+    const resultPromise = session.run(
+      `Match(n)-[r]->(related)
+      WHERE n._id = '${id}'
+      RETURN (r)
+      `
+    );
+    resultPromise.then(result => {
+      session.close();
       const singleRecord = result.records[0];
       const node = singleRecord.get(0);
       return callback(node.properties);

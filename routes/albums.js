@@ -11,6 +11,13 @@ router.get('/:id', function(req, res, next) {
 
 });
 
+router.get('/related/:id', function(req, res, next) {
+  neo4j.getRelatedNodes(req.params.id, (result) => {
+    res.json(result);
+  })
+
+});
+
 router.get('/relationships/:id', function(req, res, next) {
   neo4j.getNodeRelationships(req.params.id, (result) => {
     res.json(result);
