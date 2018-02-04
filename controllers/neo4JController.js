@@ -33,7 +33,20 @@ module.exports = {
       return callback(node.properties);
     });
   },
-  createArtistRelationship: function(){
-    return true;
+  createArtistRelationship: function(property, callback){
+    const session = driver.session();
+    console.log(property.rel);
+    const resultPromise = session.run(
+      `MATCH (a:Artist),(b:Artist)
+      WHERE a._id = '${property.source}' AND b._id = '${property.target}'
+      CREATE (a)-[r:${property.rel}]->(b)
+      RETURN r`,
+      {}
+    );
+
+    resultPromise.then(result => {
+      session.close();
+      return callback(result.records[0]._fields[0].type);
+    })
   }
 };

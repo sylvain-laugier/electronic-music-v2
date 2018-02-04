@@ -35,4 +35,11 @@ router.post('/add-artist', function(req, res, next) {
   });
 })
 
+router.post('/add-artist-relationship', function(req, res, next) {
+  var property = req.body;
+  neo4j.createArtistRelationship(property, function(result){
+    res.json(result);
+  });
+})
+
 module.exports = router;
