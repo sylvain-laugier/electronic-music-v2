@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import { Card, CardActions, CardMedia, CardTitle, CardText } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
+import { Link } from 'react-router-dom';
 
 const style = {
   width: 'calc(50% - 20px)',
@@ -52,7 +53,12 @@ export default class Album extends Component {
   }
   renderActions() {
     if (this.state.existInDatabase) {
-      return <FlatButton label="Manage" />;
+      return (
+        <Link to={`album/${this.props.album.id}`}>
+          <FlatButton label="Manage" />
+        </Link>
+
+      );
     }
     return <FlatButton label="Add to DB" onClick={this.addAlbumToNeo4J} />;
   }
