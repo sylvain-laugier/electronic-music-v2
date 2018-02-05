@@ -4,16 +4,22 @@ import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import ActionAndroid from 'material-ui/svg-icons/action/search';
+import Checkbox from 'material-ui/Checkbox';
 
-const paperStyle = {
-  margin: '0px auto',
-  width: '80%',
-  display: 'flex',
-  justifyContent: 'center',
-};
-
-const textStyle = {
-  margin: '0px 20px',
+const style = {
+  paperStyle: {
+    margin: '0px auto',
+    width: '80%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  textStyle: {
+    margin: '0px 20px',
+  },
+  checkbox: {
+    width: '250px',
+  },
 };
 
 export default class SearchContainer extends Component {
@@ -32,9 +38,9 @@ export default class SearchContainer extends Component {
   render() {
     return (
       <div>
-        <Paper style={paperStyle} zDepth={0} >
+        <Paper style={style.paperStyle} zDepth={0} >
           <TextField
-            style={textStyle}
+            style={style.textStyle}
             hintText="Rechercher"
             value={this.state.searchField}
             onChange={this.handleTextChange}
@@ -44,6 +50,12 @@ export default class SearchContainer extends Component {
             hoverColor="#ff6f60"
             icon={<ActionAndroid color="#fff" />}
             onClick={() => this.props.handleSearch(this.state.searchField)}
+          />
+          <Checkbox
+            label="Hide Spotify Results"
+            style={style.checkbox}
+            checked={this.props.spotifyChecked}
+            onCheck={this.props.updateSpotifyChecked}
           />
         </Paper>
       </div>

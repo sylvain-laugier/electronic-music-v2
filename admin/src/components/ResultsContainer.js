@@ -15,13 +15,14 @@ export default class ResultsContainer extends Component {
     this.renderResults = this.renderResults.bind(this);
   }
   renderResults = () => {
+    let results = this.props.results;
     if (this.props.type === 'album') {
-      return this.props.results.map(album =>
-        <Album key={album.id} album={album} />)
+      return results.map(album =>
+        <Album key={album.id} album={album} spotifyChecked={this.props.spotifyChecked} />)
     }
     if (this.props.type === 'artist') {
-      return this.props.results.map(artist =>
-        <Artist key={artist.id} artist={artist} />)
+      return results.map(artist =>
+        <Artist key={artist.id} artist={artist} spotifyChecked={this.props.spotifyChecked} />)
     }
     return null;
   }

@@ -57,17 +57,20 @@ export default class Album extends Component {
     return <FlatButton label="Add to DB" onClick={this.addAlbumToNeo4J} />;
   }
   render() {
-    return (
-      <Card style={style}>
-        <CardMedia>
-          <img src={this.props.album.images[0].url} alt="" />
-        </CardMedia>
-        <CardTitle title={this.props.album.name} subtitle={this.props.album.artists[0].name} />
-        <CardActions>
-          {this.renderActions()}
-        </CardActions>
-      </Card>
-    );
+    if (!this.props.spotifyChecked || this.state.existInDatabase) {
+      return (
+        <Card style={style}>
+          <CardMedia>
+            <img src={this.props.album.images[0].url} alt="" />
+          </CardMedia>
+          <CardTitle title={this.props.album.name} subtitle={this.props.album.artists[0].name} />
+          <CardActions>
+            {this.renderActions()}
+          </CardActions>
+        </Card>
+      );
+    }
+    return null;
   }
 }
 
