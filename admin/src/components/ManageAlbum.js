@@ -1,34 +1,29 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import { Card, CardActions, CardMedia, CardTitle, CardText } from 'material-ui/Card';
+import Album from './Album';
 
 export default class ManageAlbum extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      album: {},
+      found: false,
     };
   }
   componentDidMount() {
     return fetch(`/albums/${this.props.match.params.id}`)
       .then(res => res.json())
       .then(dbAlbumInfo => this.setState({
-        album: dbAlbumInfo,
+        found: !_.isEmpty(dbAlbumInfo),
       }));
   }
   render() {
-    if (!_.isEmpty(this.state.album)) {
+    if (this.state.found) {
       return (
-        <Card >
-          <CardMedia>
-            <img src={this.state.album.image} alt="" />
-          </CardMedia>
-          <CardTitle title={this.state.album.name} subtitle={this.state.album.name} />
-        </Card>
+        <Album id={this.props.match.params.id} isUnderManagement />
       );
     }
-    return <h1> Pas d'album trouvé :(</h1> ;
+    return <h1> Pas d\'album trouvé :(</h1>;
   }
 }
 /*

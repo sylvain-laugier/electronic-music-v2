@@ -7,7 +7,7 @@ import FlatButton from 'material-ui/FlatButton';
 import { Link } from 'react-router-dom';
 
 const style = {
-  width: 'calc(50% - 20px)',
+  width: 'calc(100% - 20px)',
   flex: '0 0 auto',
   margin: '10px',
 };
@@ -15,19 +15,28 @@ export default class Album extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      album: {},
       existInDatabase: false,
-      databaseInfos: {},
+      loading: true,
     };
     this.renderActions = this.renderActions.bind(this);
     this.addAlbumToNeo4J = this.addAlbumToNeo4J.bind(this);
   }
   componentDidMount() {
-    return fetch(`albums/${this.props.album.id}`)
+    fetch(`/albums/get-spotify/${this.props.id}`)
       .then(res => res.json())
-      .then(dbAlbumInfo => this.setState({
-        existInDatabase: !_.isEmpty(dbAlbumInfo),
-        databaseInfos: dbAlbumInfo,
+      .then(album => this.setState({
+        album,
+        loading: false,
       }));
+    if (!this.props.hasBeenSearched) {
+      return fetch(`/albums/${this.props.id}`)
+        .then(res => res.json())
+        .then(dbAlbumInfo => this.setState({
+          existInDatabase: !_.isEmpty(dbAlbumInfo),
+        }));
+    }
+    return null;
   }
   addAlbumToNeo4J() {
     // First we search for album in spotify to get the complete object
@@ -54,7 +63,7 @@ export default class Album extends Component {
   renderActions() {
     if (this.state.existInDatabase) {
       return (
-        <Link to={`album/${this.props.album.id}`}>
+        <Link to={`album/${this.state.album.id}`}>
           <FlatButton label="Manage" />
         </Link>
 
@@ -63,23 +72,35 @@ export default class Album extends Component {
     return <FlatButton label="Add to DB" onClick={this.addAlbumToNeo4J} />;
   }
   render() {
-    if (!this.props.spotifyChecked || this.state.existInDatabase) {
-      return (
-        <Card style={style}>
-          <CardMedia>
-            <img src={this.props.album.images[0].url} alt="" />
-          </CardMedia>
-          <CardTitle title={this.props.album.name} subtitle={this.props.album.artists[0].name} />
-          <CardActions>
-            {this.renderActions()}
-          </CardActions>
-        </Card>
-      );
+    if (!this.state.loading) {
+      if (!this.props.spotifyChecked || this.state.existInDatabase) {
+        return (
+          <Card style={style}>
+            <CardMedia>
+              <img src={this.state.album.images[0].url} alt="" />
+            </CardMedia>
+            <CardTitle title={this.state.album.name} subtitle={this.state.album.artists[0].name} />
+            <CardActions>
+              {/*this.props.fromDb ? null : this.renderActions()*/}
+            </CardActions>
+          </Card>
+        );
+      }
     }
+
     return null;
   }
 }
 
+Album.defaultProps = {
+  hasBeenSearched: false,
+  isUnderManagement: false,
+  spotifyChecked: false,
+};
+
 Album.propTypes = {
-  album: PropTypes.isRequired,
+  id: PropTypes.string.isRequired,
+  hasBeenSearched: PropTypes.bool,
+  isUnderManagement: PropTypes.bool,
+  spotifyChecked: PropTypes.bool,
 };
