@@ -42,7 +42,7 @@ export default class Album extends Component {
     return null;
   }
   addAlbumToNeo4J() {
-    fetch('albums/add-album', {
+    fetch('/albums/add-album', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

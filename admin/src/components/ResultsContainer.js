@@ -23,6 +23,7 @@ export default class ResultsContainer extends Component {
           id={album.id}
           spotifyChecked={this.props.spotifyChecked}
           hasBeenSearched
+          isUnderManagement={this.props.isUnderManagement}
         />));
     }
     return null;
@@ -44,4 +45,5 @@ ResultsContainer.propTypes = {
   results: PropTypes.arrayOf(PropTypes.object).isRequired,
   spotifyChecked: PropTypes.bool.isRequired,
   type: PropTypes.string.isRequired,
+  isUnderManagement: PropTypes.bool.isRequired,
 };

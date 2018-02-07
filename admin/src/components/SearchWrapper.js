@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import SearchContainer from './SearchContainer';
 import ResultsContainer from './ResultsContainer';
@@ -38,6 +39,7 @@ export default class SearchWrapper extends Component {
           type="album"
           results={this.state.albumsResults}
           spotifyChecked={this.state.spotifyChecked}
+          isUnderManagement={this.props.isUnderManagement}
         />);
     }
     return null;
@@ -57,3 +59,11 @@ export default class SearchWrapper extends Component {
     );
   }
 }
+
+SearchWrapper.defaultProps = {
+  isUnderManagement: false,
+};
+
+SearchWrapper.propTypes = {
+  isUnderManagement: PropTypes.bool,
+};

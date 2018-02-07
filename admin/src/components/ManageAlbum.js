@@ -26,7 +26,7 @@ export default class ManageAlbum extends Component {
       return (
         <div>
           <Album id={this.props.match.params.id} isUnderManagement />
-          <SearchWrapper />
+          <SearchWrapper isUnderManagement />
         </div>
       );
     }
