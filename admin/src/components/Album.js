@@ -26,6 +26,8 @@ export default class Album extends Component {
     };
     this.renderActions = this.renderActions.bind(this);
     this.addAlbumToNeo4J = this.addAlbumToNeo4J.bind(this);
+    this.addArtistToNeo4J = this.addArtistToNeo4J.bind(this);
+    this.addArtistAlbumRelationship = this.addArtistAlbumRelationship.bind(this);
     this.handleMessDialogOpen = this.handleMessDialogOpen.bind(this);
     this.handleMessDialogClose = this.handleMessDialogClose.bind(this);
     this.renderAddRelationshipButton = this.renderAddRelationshipButton.bind(this);
@@ -68,7 +70,63 @@ export default class Album extends Component {
         this.setState({
           existInDatabase: !_.isEmpty(insertedAlbum),
         });
+        // we check if the artist exist in the database
+        fetch(`/artists/${this.state.album.artists[0].id}`)
+          .then(res => res.json())
+          .then((artistRes) => {
+            if (_.isEmpty(artistRes)) {
+              // if not, we add him to the db
+              this.addArtistToNeo4J(() => this.addArtistAlbumRelationship());
+            } else {
+              // if it exist we create the relationship
+              this.addArtistAlbumRelationship();
+            }
+          });
       });
+  }
+
+  addArtistToNeo4J(callback) {
+    fetch(`/artists/get-spotify/${this.state.album.artists[0].id}`)
+      .then(res => res.json())
+      .then((spotifyArtist) => {
+        fetch('/artists/add-artist', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(spotifyArtist),
+        }).then(res => res.json())
+          .then((insertedArtist) => {
+            console.log('added :', insertedArtist);
+            if (_.isFunction(callback)) {
+              callback();
+            }
+          });
+      });
+  }
+
+  addArtistAlbumRelationship() {
+    const property = {
+      source: {
+        label: 'Artist',
+        _id: this.state.album.artists[0].id,
+      },
+      target: {
+        label: 'Album',
+        _id: this.state.album.id,
+      },
+      rel: {
+        reltype: 'AUTHORED',
+      },
+    };
+    fetch('/add-relationship', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(property),
+    }).then(res => res.json())
+      .then(addedRelation => console.log(addedRelation));
   }
   handleTextChange = (event) => {
     this.setState({

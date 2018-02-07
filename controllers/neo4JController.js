@@ -127,7 +127,7 @@ module.exports = {
   createDryRelationship: function(property, callback){
     const session = driver.session();
     const resultPromise = session.run(
-      `MATCH (a:${property.source.label}),(b:${property.source.label})
+      `MATCH (a:${property.source.label}),(b:${property.target.label})
       WHERE a._id = '${property.source._id}' AND b._id = '${property.target._id}'
       CREATE (a)-[r:${property.rel.reltype}]->(b)
       RETURN r`,
@@ -136,7 +136,6 @@ module.exports = {
 
     resultPromise.then(result => {
       session.close();
-      console.log('dry relationship created ');
       return callback(result.records[0]._fields[0].type);
     }).catch(err => {
       return callback(err);
