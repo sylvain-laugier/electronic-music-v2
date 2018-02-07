@@ -22,8 +22,7 @@ export default class ManageAlbum extends Component {
         loading: false,
       }));
   }
-  addRelationship(targetId) {
-    console.log('called');
+  addRelationship(targetId, message) {
     const property = {
       source: {
         label: 'Album',
@@ -35,7 +34,7 @@ export default class ManageAlbum extends Component {
       },
       rel: {
         type: 'ALBUM_RECO',
-        message: 'en dur pour le moment',
+        message,
       },
     };
     fetch('/albums/add-album-relationship', {

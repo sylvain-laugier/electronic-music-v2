@@ -6,6 +6,8 @@ import { Card, CardActions, CardMedia, CardTitle, CardText } from 'material-ui/C
 import FlatButton from 'material-ui/FlatButton';
 import { Link } from 'react-router-dom';
 import CircularProgress from 'material-ui/CircularProgress';
+import Dialog from 'material-ui/Dialog';
+import TextField from 'material-ui/TextField';
 
 export default class Album extends Component {
   constructor(props) {
@@ -14,6 +16,8 @@ export default class Album extends Component {
       album: {},
       existInDatabase: false,
       loading: true,
+      messRelationDialogOpen: false,
+      messaRelation: '',
       style: {
         width: `calc(${this.props.width} - 20px)`,
         flex: '0 0 auto',
@@ -22,6 +26,9 @@ export default class Album extends Component {
     };
     this.renderActions = this.renderActions.bind(this);
     this.addAlbumToNeo4J = this.addAlbumToNeo4J.bind(this);
+    this.handleMessDialogOpen = this.handleMessDialogOpen.bind(this);
+    this.handleMessDialogClose = this.handleMessDialogClose.bind(this);
+    this.renderAddRelationshipButton = this.renderAddRelationshipButton.bind(this);
   }
   componentDidMount() {
     // every album has to search for itself in spotify to be displayed
@@ -41,6 +48,13 @@ export default class Album extends Component {
     }
     return null;
   }
+  handleMessDialogOpen = () => {
+    this.setState({ messRelationDialogOpen: true });
+  };
+
+  handleMessDialogClose = () => {
+    this.setState({ messRelationDialogOpen: false });
+  };
   addAlbumToNeo4J() {
     fetch('/albums/add-album', {
       method: 'POST',
@@ -56,14 +70,58 @@ export default class Album extends Component {
         });
       });
   }
+  handleTextChange = (event) => {
+    this.setState({
+      messaRelation: event.target.value,
+    });
+  };
+  renderAddRelationshipButton() {
+    const actions = [
+      <FlatButton
+        label="Cancel"
+        primary
+        onClick={this.handleMessDialogClose}
+      />,
+      <FlatButton
+        label="Submit"
+        primary
+        keyboardFocused
+        onClick={() => {
+          this.props.addRelationship(this.props.id, this.state.messaRelation);
+          return this.handleMessDialogClose();
+        }}
+      />,
+    ];
+    return (
+      <div>
+        <FlatButton
+          label="add as a relationship"
+          onClick={this.handleMessDialogOpen}
+        />
+        <Dialog
+          title="Entrez le message de la relation"
+          actions={actions}
+          modal={false}
+          open={this.state.messRelationDialogOpen}
+          onRequestClose={this.handleMessDialogClose}
+        >
+          <TextField
+            style={{
+              margin: '0px 20px',
+            }}
+            hintText="Message"
+            value={this.state.messaRelation}
+            onChange={this.handleTextChange}
+          />
+        </Dialog>
+      </div>
+    );
+  }
   renderActions() {
     // in this first case, the album is searched in the context of management
     if (this.props.hasBeenSearched && this.props.isUnderManagement) {
       if (this.state.existInDatabase) {
-        return (<FlatButton
-          label="add as a relationship"
-          onClick={() => this.props.addRelationship(this.props.id)}
-        />);
+        return this.renderAddRelationshipButton();
       }
       return <FlatButton label="Add to DB" onClick={this.addAlbumToNeo4J} />;
     } else if (this.props.hasBeenSearched) {
