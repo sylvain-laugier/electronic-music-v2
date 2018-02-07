@@ -7,11 +7,6 @@ import FlatButton from 'material-ui/FlatButton';
 import { Link } from 'react-router-dom';
 import CircularProgress from 'material-ui/CircularProgress';
 
-const style = {
-  width: 'calc(100% - 20px)',
-  flex: '0 0 auto',
-  margin: '10px',
-};
 export default class Album extends Component {
   constructor(props) {
     super(props);
@@ -19,12 +14,17 @@ export default class Album extends Component {
       album: {},
       existInDatabase: false,
       loading: true,
+      style: {
+        width: `calc(${this.props.width} - 20px)`,
+        flex: '0 0 auto',
+        margin: '10px',
+      },
     };
     this.renderActions = this.renderActions.bind(this);
     this.addAlbumToNeo4J = this.addAlbumToNeo4J.bind(this);
   }
   componentDidMount() {
-    //every album has to search for itself in spotify to be displayed
+    // every album has to search for itself in spotify to be displayed
     fetch(`/albums/get-spotify/${this.props.id}`)
       .then(res => res.json())
       .then(album => this.setState({
@@ -42,25 +42,18 @@ export default class Album extends Component {
     return null;
   }
   addAlbumToNeo4J() {
-    // First we search for album in spotify to get the complete object
-    return fetch(`albums/get-spotify/${this.props.album.id}`)
-      .then(res => res.json())
-      .then((albumSpotifyObject) => {
-        // once the search is done we send the result to add Db
-        fetch('albums/add-album', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(albumSpotifyObject),
-        }).then(res => res.json())
-          .then((insertedAlbum) => {
-            console.log('added :', insertedAlbum);
-            this.setState({
-              existInDatabase: !_.isEmpty(insertedAlbum),
-              databaseInfos: insertedAlbum,
-            });
-          });
+    fetch('albums/add-album', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(this.state.album),
+    }).then(res => res.json())
+      .then((insertedAlbum) => {
+        console.log('added :', insertedAlbum);
+        this.setState({
+          existInDatabase: !_.isEmpty(insertedAlbum),
+        });
       });
   }
   renderActions() {
@@ -89,7 +82,7 @@ export default class Album extends Component {
       // we only display the component if it has been found in the database
       if (!this.props.spotifyChecked || this.state.existInDatabase) {
         return (
-          <Card style={style}>
+          <Card style={this.state.style}>
             <CardMedia>
               <img src={this.state.album.images[0].url} alt="" />
             </CardMedia>
@@ -102,7 +95,7 @@ export default class Album extends Component {
       }
     }
     return (
-      <Card style={style}>
+      <Card style={this.state.style}>
         <CircularProgress />
       </Card>
     );
@@ -113,6 +106,7 @@ Album.defaultProps = {
   hasBeenSearched: false,
   isUnderManagement: false,
   spotifyChecked: false,
+  width: '25%',
 };
 
 Album.propTypes = {
@@ -120,4 +114,5 @@ Album.propTypes = {
   hasBeenSearched: PropTypes.bool,
   isUnderManagement: PropTypes.bool,
   spotifyChecked: PropTypes.bool,
+  width: PropTypes.string,
 };

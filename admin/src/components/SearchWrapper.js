@@ -12,23 +12,18 @@ export default class SearchWrapper extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      artistResults: [],
       albumsResults: [],
       spotifyChecked: false,
     };
     this.handleSearch = this.handleSearch.bind(this);
     this.renderAlbumResults = this.renderAlbumResults.bind(this);
-    this.renderArtistResults = this.renderArtistResults.bind(this);
     this.updateSpotifyChecked = this.updateSpotifyChecked.bind(this);
   }
 
   handleSearch = (query) => {
-    fetch(`albums/search-spotify/${query}`)
+    fetch(`/albums/search-spotify/${query}`)
       .then(res => res.json())
       .then(found => this.setState({ albumsResults: found.items }));
-    fetch(`artists/search-spotify/${query}`)
-      .then(res => res.json())
-      .then(found => this.setState({ artistResults: found.items }));
   }
   updateSpotifyChecked() {
     this.setState({
@@ -47,18 +42,6 @@ export default class SearchWrapper extends Component {
     }
     return null;
   }
-  renderArtistResults = () => {
-    if (this.state.artistResults.length > 0) {
-      return (
-        <ResultsContainer
-          title="Artists Results"
-          type="artist"
-          results={this.state.artistResults}
-          spotifyChecked={this.state.spotifyChecked}
-        />);
-    }
-    return null;
-  }
   render() {
     return (
       <div>
@@ -69,7 +52,6 @@ export default class SearchWrapper extends Component {
         />
         <div style={style}>
           {this.renderAlbumResults()}
-          {this.renderArtistResults()}
         </div>
       </div>
     );

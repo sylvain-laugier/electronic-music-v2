@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+
 import Album from './Album';
+import SearchWrapper from './SearchWrapper';
 
 export default class ManageAlbum extends Component {
   constructor(props) {
@@ -22,7 +24,10 @@ export default class ManageAlbum extends Component {
   render() {
     if (this.state.found) {
       return (
-        <Album id={this.props.match.params.id} isUnderManagement />
+        <div>
+          <Album id={this.props.match.params.id} isUnderManagement />
+          <SearchWrapper />
+        </div>
       );
     }
     if (!this.state.loading) {
