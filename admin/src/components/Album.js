@@ -5,6 +5,7 @@ import _ from 'lodash';
 import { Card, CardActions, CardMedia, CardTitle, CardText } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import { Link } from 'react-router-dom';
+import CircularProgress from 'material-ui/CircularProgress';
 
 const style = {
   width: 'calc(100% - 20px)',
@@ -23,13 +24,15 @@ export default class Album extends Component {
     this.addAlbumToNeo4J = this.addAlbumToNeo4J.bind(this);
   }
   componentDidMount() {
+    //every album has to search for itself in spotify to be displayed
     fetch(`/albums/get-spotify/${this.props.id}`)
       .then(res => res.json())
       .then(album => this.setState({
         album,
         loading: false,
       }));
-    if (!this.props.hasBeenSearched) {
+    // if the album is displayed in the context of search, it searchs for itself in the databse
+    if (this.props.hasBeenSearched) {
       return fetch(`/albums/${this.props.id}`)
         .then(res => res.json())
         .then(dbAlbumInfo => this.setState({
@@ -61,18 +64,29 @@ export default class Album extends Component {
       });
   }
   renderActions() {
-    if (this.state.existInDatabase) {
-      return (
-        <Link to={`album/${this.state.album.id}`}>
-          <FlatButton label="Manage" />
-        </Link>
+    // in this first case, the album is searched in the context of management
+    if (this.props.hasBeenSearched && this.props.isUnderManagement) {
+      return <FlatButton label="add as a relationship" />;
+    } else if (this.props.hasBeenSearched) {
+      // in this case, the album is searched in the context of search
+      // we display the appropriate value depending on the presence of the album in the database
+      if (this.state.existInDatabase) {
+        return (
+          <Link to={`album/${this.state.album.id}`}>
+            <FlatButton label="Manage" />
+          </Link>
 
-      );
+        );
+      }
+      return <FlatButton label="Add to DB" onClick={this.addAlbumToNeo4J} />;
     }
-    return <FlatButton label="Add to DB" onClick={this.addAlbumToNeo4J} />;
+    // base case, we just wand to display the album information for the sake of it
+    return null;
   }
   render() {
     if (!this.state.loading) {
+      // if the spotify checkbox is checked,
+      // we only display the component if it has been found in the database
       if (!this.props.spotifyChecked || this.state.existInDatabase) {
         return (
           <Card style={style}>
@@ -81,14 +95,17 @@ export default class Album extends Component {
             </CardMedia>
             <CardTitle title={this.state.album.name} subtitle={this.state.album.artists[0].name} />
             <CardActions>
-              {/*this.props.fromDb ? null : this.renderActions()*/}
+              {this.renderActions()}
             </CardActions>
           </Card>
         );
       }
     }
-
-    return null;
+    return (
+      <Card style={style}>
+        <CircularProgress />
+      </Card>
+    );
   }
 }
 

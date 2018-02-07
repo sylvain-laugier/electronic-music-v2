@@ -8,6 +8,7 @@ export default class ManageAlbum extends Component {
     super(props);
     this.state = {
       found: false,
+      loading: true,
     };
   }
   componentDidMount() {
@@ -15,6 +16,7 @@ export default class ManageAlbum extends Component {
       .then(res => res.json())
       .then(dbAlbumInfo => this.setState({
         found: !_.isEmpty(dbAlbumInfo),
+        loading: false,
       }));
   }
   render() {
@@ -23,7 +25,10 @@ export default class ManageAlbum extends Component {
         <Album id={this.props.match.params.id} isUnderManagement />
       );
     }
-    return <h1> Pas d\'album trouvé :(</h1>;
+    if (!this.state.loading) {
+      return <h1> Pas d\'album trouvé :(</h1>;
+    }
+    return null;
   }
 }
 /*
