@@ -59,7 +59,13 @@ export default class Album extends Component {
   renderActions() {
     // in this first case, the album is searched in the context of management
     if (this.props.hasBeenSearched && this.props.isUnderManagement) {
-      return <FlatButton label="add as a relationship" />;
+      if (this.state.existInDatabase) {
+        return (<FlatButton
+          label="add as a relationship"
+          onClick={() => this.props.addRelationship(this.props.id)}
+        />);
+      }
+      return <FlatButton label="Add to DB" onClick={this.addAlbumToNeo4J} />;
     } else if (this.props.hasBeenSearched) {
       // in this case, the album is searched in the context of search
       // we display the appropriate value depending on the presence of the album in the database
@@ -93,6 +99,7 @@ export default class Album extends Component {
           </Card>
         );
       }
+      return null;
     }
     return (
       <Card style={this.state.style}>
@@ -107,6 +114,7 @@ Album.defaultProps = {
   isUnderManagement: false,
   spotifyChecked: false,
   width: '25%',
+  addRelationship: () => null,
 };
 
 Album.propTypes = {
@@ -115,4 +123,5 @@ Album.propTypes = {
   isUnderManagement: PropTypes.bool,
   spotifyChecked: PropTypes.bool,
   width: PropTypes.string,
+  addRelationship: PropTypes.func,
 };

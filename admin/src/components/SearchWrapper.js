@@ -40,6 +40,7 @@ export default class SearchWrapper extends Component {
           results={this.state.albumsResults}
           spotifyChecked={this.state.spotifyChecked}
           isUnderManagement={this.props.isUnderManagement}
+          addRelationship={this.props.addRelationship}
         />);
     }
     return null;
@@ -62,8 +63,10 @@ export default class SearchWrapper extends Component {
 
 SearchWrapper.defaultProps = {
   isUnderManagement: false,
+  addRelationship: () => null,
 };
 
 SearchWrapper.propTypes = {
   isUnderManagement: PropTypes.bool,
+  addRelationship: PropTypes.func,
 };

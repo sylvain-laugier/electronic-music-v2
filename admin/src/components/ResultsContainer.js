@@ -6,7 +6,7 @@ const style = {
   display: 'flex',
   flexDirection: 'row',
   flexWrap: 'wrap',
-  width: '100%',
+  width: '100vw',
 };
 
 export default class ResultsContainer extends Component {
@@ -24,6 +24,7 @@ export default class ResultsContainer extends Component {
           spotifyChecked={this.props.spotifyChecked}
           hasBeenSearched
           isUnderManagement={this.props.isUnderManagement}
+          addRelationship={this.props.addRelationship}
         />));
     }
     return null;
@@ -40,10 +41,15 @@ export default class ResultsContainer extends Component {
   }
 }
 
+ResultsContainer.defaultProps = {
+  addRelationship: () => null,
+};
+
 ResultsContainer.propTypes = {
   title: PropTypes.string.isRequired,
   results: PropTypes.arrayOf(PropTypes.object).isRequired,
   spotifyChecked: PropTypes.bool.isRequired,
   type: PropTypes.string.isRequired,
   isUnderManagement: PropTypes.bool.isRequired,
+  addRelationship: PropTypes.func,
 };
