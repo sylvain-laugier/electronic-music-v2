@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import IconButton from 'material-ui/IconButton';
 import ActionHome from 'material-ui/svg-icons/action/home';
 
-import Album from './Album';
+import Album from './albumComponents/Album';
 import SearchWrapper from './SearchWrapper';
 
 export default class ManageAlbum extends Component {
