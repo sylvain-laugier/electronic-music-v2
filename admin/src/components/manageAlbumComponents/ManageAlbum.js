@@ -5,8 +5,9 @@ import { Link } from 'react-router-dom';
 import IconButton from 'material-ui/IconButton';
 import ActionHome from 'material-ui/svg-icons/action/home';
 
-import Album from './albumComponents/Album';
-import SearchWrapper from './SearchWrapper';
+import Album from '../albumComponents/Album';
+import SearchWrapper from '../SearchWrapper';
+import Relation from './Relation';
 
 export default class ManageAlbum extends Component {
   constructor(props) {
@@ -14,16 +15,30 @@ export default class ManageAlbum extends Component {
     this.state = {
       found: false,
       loading: true,
+      relations: [],
     };
     this.addRelationship = this.addRelationship.bind(this);
+    this.renderRelations = this.renderRelations.bind(this);
+    this.getRelationShips = this.getRelationShips.bind(this);
   }
   componentDidMount() {
-    return fetch(`/albums/${this.props.match.params.id}`)
+    fetch(`/albums/${this.props.match.params.id}`)
       .then(res => res.json())
       .then(dbAlbumInfo => this.setState({
         found: !_.isEmpty(dbAlbumInfo),
         loading: false,
       }));
+    this.getRelationShips();
+  }
+  getRelationShips() {
+    fetch(`/albums/relationships/${this.props.match.params.id}`)
+      .then(res => res.json())
+      .then((relationships) => {
+        const onlyFields = relationships.map(relation => relation._fields);
+        this.setState({
+          relations: onlyFields,
+        });
+      });
   }
   addRelationship(targetId, message) {
     const property = {
@@ -48,8 +63,15 @@ export default class ManageAlbum extends Component {
       body: JSON.stringify(property),
     }).then(res => res.json())
       .then((newRelation) => {
+        this.getRelationShips();
         console.log('relation created:', newRelation);
       });
+  }
+  renderRelations() {
+    if (this.state.relations.length > 0) {
+      return this.state.relations.map(relation => <Relation key={`${relation[1].start.low}${relation[1].end.low}`} relation={relation} />);
+    }
+    return null;
   }
   render() {
     if (this.state.found) {
@@ -60,11 +82,14 @@ export default class ManageAlbum extends Component {
               <ActionHome />
             </IconButton>
           </Link>
-          <div>
+          <div className="manage-album-container">
             <Album
               id={this.props.match.params.id}
               isUnderManagement
             />
+            <div className="relations-container">
+              {this.renderRelations()}
+            </div>
           </div>
           <SearchWrapper isUnderManagement addRelationship={this.addRelationship} />
         </div>

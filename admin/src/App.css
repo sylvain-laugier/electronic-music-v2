@@ -23,6 +23,22 @@
   font-size: large;
 }
 
+.manage-album-container {
+  display:flex;
+  flex-flow: row;
+  justify-content: space-between;
+}
+
+.relations-container {
+  display:flex;
+  flex-flow: row;
+  flex: 0 0 70%;
+  justify-content: space-between;
+}
+.relation-container {
+  display: flex;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

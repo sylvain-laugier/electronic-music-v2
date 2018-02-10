@@ -51,9 +51,8 @@ module.exports = {
     );
     resultPromise.then(result => {
       session.close();
-      const singleRecord = result.records[0];
-      const node = singleRecord.get(0);
-      return callback(node.properties);
+      const singleRecord = result.records;
+      return callback(singleRecord);
     }).catch(err => {
       return callback(err);
     });
@@ -63,14 +62,13 @@ module.exports = {
     const resultPromise = session.run(
       `Match(n)-[r]->(related)
       WHERE n._id = '${id}'
-      RETURN (r)
+      RETURN *
       `
     );
     resultPromise.then(result => {
       session.close();
-      const singleRecord = result.records[0];
-      const node = singleRecord.get(0);
-      return callback(node.properties);
+      const singleRecord = result.records;
+      return callback(singleRecord);
     }).catch(err => {
       return callback(err);
     });

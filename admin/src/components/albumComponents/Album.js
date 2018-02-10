@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-import { Card, CardActions, CardMedia, CardTitle } from 'material-ui/Card';
+import { Card, CardActions, CardMedia, CardTitle, CardText } from 'material-ui/Card';
 import CircularProgress from 'material-ui/CircularProgress';
 
 import AlbumActions from './AlbumActions';
@@ -119,7 +119,11 @@ export default class Album extends Component {
       if (!this.props.spotifyChecked || this.state.existInDatabase) {
         return (
           <Card style={this.state.style}>
-            <CardMedia>
+            <CardMedia
+              overlay={
+                <CardText>{this.props.overlayTitle}</CardText>
+              }
+            >
               <img src={this.state.album.images[0].url} alt="" />
             </CardMedia>
             <CardTitle title={this.state.album.name} subtitle={this.state.album.artists[0].name} />
@@ -151,6 +155,7 @@ Album.defaultProps = {
   isUnderManagement: false,
   spotifyChecked: false,
   width: '25%',
+  overlayTitle: '',
   addRelationship: () => null,
 };
 
@@ -161,4 +166,5 @@ Album.propTypes = {
   spotifyChecked: PropTypes.bool,
   width: PropTypes.string,
   addRelationship: PropTypes.func,
+  overlayTitle: PropTypes.string,
 };

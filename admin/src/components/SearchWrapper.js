@@ -15,6 +15,7 @@ export default class SearchWrapper extends Component {
     this.state = {
       albumsResults: [],
       spotifyChecked: false,
+      noResult: false,
     };
     this.handleSearch = this.handleSearch.bind(this);
     this.renderAlbumResults = this.renderAlbumResults.bind(this);
@@ -22,9 +23,19 @@ export default class SearchWrapper extends Component {
   }
 
   handleSearch = (query) => {
-    fetch(`/albums/search-spotify/${query}`)
-      .then(res => res.json())
-      .then(found => this.setState({ albumsResults: found.items }));
+    this.setState({ noResult: false }, () => {
+      fetch(`/albums/search-spotify/${query}`)
+        .then(res => res.json())
+        .then((found) => {
+          if (found.items.length > 0) {
+            return this.setState({ albumsResults: found.items });
+          }
+          return this.setState({
+            noResult: true,
+            albumsResults: [],
+          });
+        });
+    });
   }
   updateSpotifyChecked() {
     this.setState({
@@ -42,6 +53,9 @@ export default class SearchWrapper extends Component {
           isUnderManagement={this.props.isUnderManagement}
           addRelationship={this.props.addRelationship}
         />);
+    }
+    if (this.state.noResult) {
+      return <h1> Pas de résultats </h1>;
     }
     return null;
   }

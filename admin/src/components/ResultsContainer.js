@@ -15,9 +15,8 @@ export default class ResultsContainer extends Component {
     this.renderResults = this.renderResults.bind(this);
   }
   renderResults = () => {
-    const { results } = this.props;
     if (this.props.type === 'album') {
-      return results.map(album =>
+      return this.props.results.map(album =>
         (<Album
           key={album.id}
           id={album.id}
