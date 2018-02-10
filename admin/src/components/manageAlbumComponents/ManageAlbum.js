@@ -16,22 +16,21 @@ export default class ManageAlbum extends Component {
       found: false,
       loading: true,
       relations: [],
+      currentId: this.props.match.params.id,
     };
     this.addRelationship = this.addRelationship.bind(this);
     this.renderRelations = this.renderRelations.bind(this);
     this.getRelationShips = this.getRelationShips.bind(this);
+    this.updateItself = this.updateItself.bind(this);
   }
   componentDidMount() {
-    fetch(`/albums/${this.props.match.params.id}`)
-      .then(res => res.json())
-      .then(dbAlbumInfo => this.setState({
-        found: !_.isEmpty(dbAlbumInfo),
-        loading: false,
-      }));
-    this.getRelationShips();
+    this.updateItself();
+  }
+  componentWillReceiveProps(nextProps) {
+    this.setState({ currentId: nextProps.match.params.id }, () => this.updateItself());
   }
   getRelationShips() {
-    fetch(`/albums/relationships/${this.props.match.params.id}`)
+    fetch(`/albums/relationships/${this.state.currentId}`)
       .then(res => res.json())
       .then((relationships) => {
         const onlyFields = relationships.map(relation => relation._fields);
@@ -39,6 +38,15 @@ export default class ManageAlbum extends Component {
           relations: onlyFields,
         });
       });
+  }
+  updateItself() {
+    fetch(`/albums/${this.state.currentId}`)
+      .then(res => res.json())
+      .then(dbAlbumInfo => this.setState({
+        found: !_.isEmpty(dbAlbumInfo),
+        loading: false,
+      }));
+    this.getRelationShips();
   }
   addRelationship(targetId, message) {
     const property = {
@@ -69,7 +77,11 @@ export default class ManageAlbum extends Component {
   }
   renderRelations() {
     if (this.state.relations.length > 0) {
-      return this.state.relations.map(relation => <Relation key={`${relation[1].start.low}${relation[1].end.low}`} relation={relation} />);
+      return this.state.relations.map(relation =>
+        (<Relation
+          key={`${relation[1].start.low}${relation[1].end.low}`}
+          relation={relation}
+        />));
     }
     return null;
   }
@@ -84,7 +96,7 @@ export default class ManageAlbum extends Component {
           </Link>
           <div className="manage-album-container">
             <Album
-              id={this.props.match.params.id}
+              id={this.state.currentId}
               isUnderManagement
             />
             <div className="relations-container">

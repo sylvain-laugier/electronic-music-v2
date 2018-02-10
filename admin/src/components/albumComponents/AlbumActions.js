@@ -84,7 +84,7 @@ export default class AlbumActions extends Component {
       // we display the appropriate value depending on the presence of the album in the database
       if (this.props.existInDatabase) {
         return (
-          <Link to={`album/${this.props.id}`}>
+          <Link to={`/album/${this.props.id}`}>
             <FlatButton label="Manage" />
           </Link>
 

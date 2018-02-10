@@ -23,19 +23,21 @@ export default class SearchWrapper extends Component {
   }
 
   handleSearch = (query) => {
-    this.setState({ noResult: false }, () => {
-      fetch(`/albums/search-spotify/${query}`)
-        .then(res => res.json())
-        .then((found) => {
-          if (found.items.length > 0) {
-            return this.setState({ albumsResults: found.items });
-          }
-          return this.setState({
-            noResult: true,
-            albumsResults: [],
+    if (query.length > 0) {
+      this.setState({ noResult: false }, () => {
+        fetch(`/albums/search-spotify/${query}`)
+          .then(res => res.json())
+          .then((found) => {
+            if (found.items.length > 0) {
+              return this.setState({ albumsResults: found.items });
+            }
+            return this.setState({
+              noResult: true,
+              albumsResults: [],
+            });
           });
-        });
-    });
+      });
+    }
   }
   updateSpotifyChecked() {
     this.setState({

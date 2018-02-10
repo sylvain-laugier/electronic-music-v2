@@ -23,18 +23,25 @@ export default class Album extends Component {
     this.addAlbumToNeo4J = this.addAlbumToNeo4J.bind(this);
     this.addArtistToNeo4J = this.addArtistToNeo4J.bind(this);
     this.addArtistAlbumRelationship = this.addArtistAlbumRelationship.bind(this);
+    this.updateItself = this.updateItself.bind(this);
   }
   componentDidMount() {
+    this.updateItself(this.props);
+  }
+  componentWillReceiveProps(nextProps) {
+    this.updateItself(nextProps);
+  }
+  updateItself(props) {
     // every album has to search for itself in spotify to be displayed
-    fetch(`/albums/get-spotify/${this.props.id}`)
+    fetch(`/albums/get-spotify/${props.id}`)
       .then(res => res.json())
       .then(album => this.setState({
         album,
         loading: false,
       }));
     // if the album is displayed in the context of search, it searchs for itself in the databse
-    if (this.props.hasBeenSearched) {
-      return fetch(`/albums/${this.props.id}`)
+    if (props.hasBeenSearched) {
+      return fetch(`/albums/${props.id}`)
         .then(res => res.json())
         .then(dbAlbumInfo => this.setState({
           existInDatabase: !_.isEmpty(dbAlbumInfo),

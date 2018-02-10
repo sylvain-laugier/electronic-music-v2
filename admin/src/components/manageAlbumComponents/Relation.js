@@ -17,6 +17,8 @@ export default class Relation extends Component {
           id={this.props.relation[2].properties._id}
           overlayTitle={this.props.relation[1].properties.message}
           width="100%"
+          hasBeenSearched
+
         />
       </div>
     );
