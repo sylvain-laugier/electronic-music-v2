@@ -3,7 +3,11 @@ var router = express.Router();
 
 var spotify = require('../controllers/spotifyController.js');
 var neo4j = require('../controllers/neo4JController.js');
-/* GET home page. */
+var auth = require('./auth');
+
+var authMiddleware = auth().middleware;
+
+router.use(authMiddleware);
 router.get('/', function(req, res, next) {
   neo4j.getNodeByLabel('Album', (result) => {
     res.json(result);
@@ -41,6 +45,7 @@ router.get('/get-spotify/:id', function(req, res, next) {
 });
 
 router.get('/search-spotify/:searchTerm', function(req, res, next) {
+  console.log('hi');
   spotify.searchForAlbums(req.params.searchTerm)
     .then(function(albumRes){
       res.json(albumRes);

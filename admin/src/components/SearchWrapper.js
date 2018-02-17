@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import SearchContainer from './SearchContainer';
 import ResultsContainer from './ResultsContainer';
+import apiKey from '../apiAuthentificate';
 
 const style = {
   display: 'flex',
@@ -25,7 +26,10 @@ export default class SearchWrapper extends Component {
   handleSearch = (query) => {
     if (query.length > 0) {
       this.setState({ noResult: false }, () => {
-        fetch(`/albums/search-spotify/${query}`)
+        fetch(`/albums/search-spotify/${query}`, {
+          method: 'GET',
+          headers: new Headers(apiKey()),
+        })
           .then(res => res.json())
           .then((found) => {
             if (found.items.length > 0) {

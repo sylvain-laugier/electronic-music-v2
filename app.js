@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var config = require('./config');
 var spotify = require('./controllers/spotifyController.js');
 
 var index = require('./routes/index');
@@ -25,23 +26,13 @@ app.use('/', index);
 app.use('/artists', artists);
 app.use('/albums', albums);
 
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
-
-//Initiate database
-
-//connect to the database neo4j, has to used a 'bolt' url, whatever this is
-
-/*
-models.createArtistNode('Artist',{name: 'Metallica', genre: 'Metal'}, session, function(proof){
-  console.log(proof);
-  driver.close();
-});*/
-// on application exit:
 
 // error handler
 app.use(function(err, req, res, next) {

@@ -6,6 +6,7 @@ import { Card, CardActions, CardMedia, CardTitle, CardText } from 'material-ui/C
 import CircularProgress from 'material-ui/CircularProgress';
 
 import AlbumActions from './AlbumActions';
+import apiKey from '../../apiAuthentificate';
 
 export default class Album extends Component {
   constructor(props) {
@@ -33,7 +34,10 @@ export default class Album extends Component {
   }
   updateItself(props) {
     // every album has to search for itself in spotify to be displayed
-    fetch(`/albums/get-spotify/${props.id}`)
+    fetch(`/albums/get-spotify/${props.id}`, {
+      method: 'GET',
+      headers: new Headers(apiKey()),
+    })
       .then(res => res.json())
       .then(album => this.setState({
         album,
@@ -41,7 +45,10 @@ export default class Album extends Component {
       }));
     // if the album is displayed in the context of search, it searchs for itself in the databse
     if (props.hasBeenSearched) {
-      return fetch(`/albums/${props.id}`)
+      return fetch(`/albums/${props.id}`, {
+        method: 'GET',
+        headers: new Headers(apiKey()),
+      })
         .then(res => res.json())
         .then(dbAlbumInfo => this.setState({
           existInDatabase: !_.isEmpty(dbAlbumInfo),
@@ -65,9 +72,7 @@ export default class Album extends Component {
     };
     fetch('/add-relationship', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: new Headers(apiKey()),
       body: JSON.stringify(property),
     }).then(res => res.json())
       .then(addedRelation => console.log(addedRelation));
@@ -75,9 +80,7 @@ export default class Album extends Component {
   addAlbumToNeo4J() {
     fetch('/albums/add-album', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: new Headers(apiKey()),
       body: JSON.stringify(this.state.album),
     }).then(res => res.json())
       .then((insertedAlbum) => {
@@ -86,7 +89,10 @@ export default class Album extends Component {
           existInDatabase: !_.isEmpty(insertedAlbum),
         });
         // we check if the artist exist in the database
-        fetch(`/artists/${this.state.album.artists[0].id}`)
+        fetch(`/artists/${this.state.album.artists[0].id}`, {
+          method: 'GET',
+          headers: new Headers(apiKey()),
+        })
           .then(res => res.json())
           .then((artistRes) => {
             if (_.isEmpty(artistRes)) {
@@ -106,9 +112,7 @@ export default class Album extends Component {
       .then((spotifyArtist) => {
         fetch('/artists/add-artist', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers: new Headers(apiKey()),
           body: JSON.stringify(spotifyArtist),
         }).then(res => res.json())
           .then((insertedArtist) => {

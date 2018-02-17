@@ -8,6 +8,7 @@ import ActionHome from 'material-ui/svg-icons/action/home';
 import Album from '../albumComponents/Album';
 import SearchWrapper from '../SearchWrapper';
 import Relation from './Relation';
+import apiKey from '../../apiAuthentificate';
 
 export default class ManageAlbum extends Component {
   constructor(props) {
@@ -30,7 +31,10 @@ export default class ManageAlbum extends Component {
     this.setState({ currentId: nextProps.match.params.id }, () => this.updateItself());
   }
   getRelationShips() {
-    fetch(`/albums/relationships/${this.state.currentId}`)
+    fetch(`/albums/relationships/${this.state.currentId}`, {
+      method: 'GET',
+      headers: new Headers(apiKey()),
+    })
       .then(res => res.json())
       .then((relationships) => {
         const onlyFields = relationships.map(relation => relation._fields);
@@ -40,7 +44,10 @@ export default class ManageAlbum extends Component {
       });
   }
   updateItself() {
-    fetch(`/albums/${this.state.currentId}`)
+    fetch(`/albums/${this.state.currentId}`, {
+      method: 'GET',
+      headers: new Headers(apiKey()),
+    })
       .then(res => res.json())
       .then(dbAlbumInfo => this.setState({
         found: !_.isEmpty(dbAlbumInfo),
@@ -65,9 +72,7 @@ export default class ManageAlbum extends Component {
     };
     fetch('/albums/add-album-relationship', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: new Headers(apiKey()),
       body: JSON.stringify(property),
     }).then(res => res.json())
       .then((newRelation) => {

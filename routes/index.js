@@ -3,7 +3,11 @@ var router = express.Router();
 
 var spotify = require('../controllers/spotifyController.js');
 var neo4j = require('../controllers/neo4JController.js');
-/* GET home page. */
+var auth = require('./auth');
+
+var authMiddleware = auth().middleware;
+
+router.use(authMiddleware);
 router.get('/', function(req, res, next) {
   res.send('welcome');
 

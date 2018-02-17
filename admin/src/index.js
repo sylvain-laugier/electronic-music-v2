@@ -9,6 +9,7 @@ import ManageAlbum from './components/manageAlbumComponents/ManageAlbum';
 import Auth from './Auth/Auth';
 import { admin } from './config';
 
+
 const auth = new Auth();
 auth.isAuthenticated((result) => {
   if (result == null || result.idTokenPayload.sub !== admin.id) {
