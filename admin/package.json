@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "auth0-js": "^9.2.3",
     "lodash": "^4.17.5",
     "material-ui": "^0.20.0",
     "prop-types": "^15.6.0",
