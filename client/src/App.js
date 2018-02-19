@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
+
 import apiKey from './apiAuthentificate.js';
+
 
 class App extends Component {
   state = {albums: []}
@@ -18,12 +20,13 @@ class App extends Component {
     return (
       <div className="App">
         <h1>Users</h1>
-        {this.state.albums.map(user =>
-          <div key={user.properties._id}>{user.properties.name}</div>
-        )}
+        {this.props.children}
+
       </div>
     );
   }
 }
+
+
 
 export default App;
