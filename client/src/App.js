@@ -1,21 +1,25 @@
 import React, { Component } from 'react';
 import './App.css';
+import apiKey from './apiAuthentificate.js';
 
 class App extends Component {
-  state = {users: []}
+  state = {albums: []}
 
   componentDidMount() {
-    fetch('/users')
+    fetch('/albums/', {
+      method: 'GET',
+      headers: new Headers(apiKey()),
+    })
       .then(res => res.json())
-      .then(users => this.setState({ users }));
+      .then(albums => this.setState({ albums: albums.map((el) => el._fields[0]) }));
   }
 
   render() {
     return (
       <div className="App">
         <h1>Users</h1>
-        {this.state.users.map(user =>
-          <div key={user.id}>{user.username}</div>
+        {this.state.albums.map(user =>
+          <div key={user.properties._id}>{user.properties.name}</div>
         )}
       </div>
     );
