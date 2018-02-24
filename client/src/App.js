@@ -10,7 +10,7 @@ class App extends Component {
   componentDidMount() {
     fetch('/albums/', {
       method: 'GET',
-      headers: new Headers(apiKey()),
+      headers: new Headers(apiKey),
     })
       .then(res => res.json())
       .then(albums => this.setState({ albums: albums.map((el) => el._fields[0]) }));

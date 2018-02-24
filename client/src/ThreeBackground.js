@@ -9,7 +9,7 @@ export default class ThreeBackground extends React.Component {
 
     // construct the position vector here, because if we use 'new' within render,
     // React will think that things have changed when they have not.
-    this.cameraPosition = new THREE.Vector3(0, 0, 5);
+    this.cameraPosition = new THREE.Vector3(0, 0, 3);
 
     this.state = {
       cubeRotation: new THREE.Euler(),
@@ -34,15 +34,20 @@ export default class ThreeBackground extends React.Component {
   render() {
     const width = window.innerWidth; // canvas width
     const height = window.innerHeight; // canvas height
+    const style = {
+      position: 'absolute',
+      zIndex: -10,
+      top: '0px',
+    };
 
     return (<React3
       mainCamera="camera" // this points to the perspectiveCamera which has the name set to "camera" below
       width={width}
       height={height}
-
       onAnimate={this._onAnimate}
+      canvasStyle={style}
     >
-      <scene>
+      <scene >
         <perspectiveCamera
           name="camera"
           fov={75}
