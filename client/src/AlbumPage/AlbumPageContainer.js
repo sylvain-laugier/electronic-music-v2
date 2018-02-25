@@ -11,7 +11,6 @@ export default class AlbumPageContainer extends Component {
   render() {
     return (
       <div className="album-page-container">
-        <h1>Essayez d'écouter </h1>
         <div className="album-display-container">
           <div className="album-display-background" />
           <div className="album-cover">

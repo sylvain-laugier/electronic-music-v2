@@ -130,10 +130,13 @@ a {
   width:90vw;
   margin-left:7.5vw;
   margin-right:2.5vw;
-  min-height:52rem;
+  min-height:35rem;
+}
+
+.album-page-ecouter-container {
   margin-top:-50px;
 }
-.album-page-container h1 {
+.album-page-ecouter-container h1 {
   text-align:left;
   font-family: 'Streamster';
   font-size:10rem;
@@ -148,6 +151,14 @@ a {
     0 0 30px #450100;
   transition: text-shadow 0.4s ease-in;
 }
+
+.album-page-ecouter-container h1:hover {
+  text-shadow:
+    0 0 10px #00DEFF,
+    0 0 25px #450100,
+    0 0 50px #00DEFF,
+    0 0 75px #450100;
+}
 .album-display-container {
   width:75%;
   float:left;
@@ -156,10 +167,10 @@ a {
   margin: 3rem 0px;
   background-color:#fff;
   position:absolute;
-  width:calc(75% + 5vw);
+  width:calc(75% + 1vw);
   height:28.1rem;
   z-index:-5;
-  left:-5vw;
+  left:0;
 }
 
 .album-cover {
@@ -193,6 +204,12 @@ a {
   text-align:center;
 }
 
+.album-spotify-container iframe {
+  background:white;
+  width:300px;
+  height: 315px;
+}
+
 .album-page-choice-container {
   display:flex;
   flex-flow: column;
@@ -205,6 +222,37 @@ a {
   font-size:1.5rem;
   width: 1000px;
   height:50px;
+}
+
+.temporary-slide-container {
+
+}
+
+.temporary-slide-container span{
+  width:200vw;
+  display: inline-block;
+}
+
+.temporary-slide-container span div{
+
+ }
+
+.example-enter {
+  transform: translate(150%);
+}
+
+.example-enter.example-enter-active {
+  transform: translate(0%);
+  transition: transform 100500ms ease-in-out;
+}
+
+.example-leave {
+  transform: translate(0%);
+}
+
+.example-leave.example-leave-active {
+  transform: translate(-100%);
+ transition: transform 100500ms ease-in-out;
 }
 @-webkit-keyframes neon1 {
   from {

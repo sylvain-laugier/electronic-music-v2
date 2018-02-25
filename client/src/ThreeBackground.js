@@ -36,9 +36,16 @@ export default class ThreeBackground extends React.Component {
           ),
         });
       } else if (this.props.transitionFromHome) {
-        this.setState({
-          cameraPosition: new THREE.Vector3(0, this.state.cameraPosition.y += (0.0003825*2), this.state.cameraPosition.z -= 0.002),
-        })
+        if (this.state.cameraPosition.z < -15) {
+          this.setState({
+            cameraPosition: new THREE.Vector3(0,0,3),
+          })
+        } else {
+          this.setState({
+            cameraPosition: new THREE.Vector3(0, this.state.cameraPosition.y += (0.0003825*2), this.state.cameraPosition.z -= 0.002),
+          })
+        }
+
       }
 
     /*this.setState({

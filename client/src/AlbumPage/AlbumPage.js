@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'; // ES6
 import apiKey from '../apiAuthentificate.js';
 
 import AlbumPageHeader from './AlbumPageHeader';
@@ -14,8 +15,10 @@ export default class AlbumPage extends Component {
       album: {},
       artist: {},
       richChoices: [],
+      newLoading: true,
     };
     this.updateComponent = this.updateComponent.bind(this);
+    this.renderSlidingSection = this.renderSlidingSection.bind(this);
   }
 
   componentDidMount() {
@@ -24,10 +27,15 @@ export default class AlbumPage extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.match.params.id !== nextProps.match.params.id) {
-      this.updateComponent(nextProps);
+      this.setState({
+        newLoading: true,
+      }, () => this.updateComponent(nextProps));
     }
   }
   updateComponent(props) {
+    this.setState({
+      newLoading: false,
+    });
     fetch(`/albums/${props.match.params.id}`, {
       method: 'GET',
       headers: new Headers(apiKey),
@@ -56,11 +64,9 @@ export default class AlbumPage extends Component {
               const richChoices = choices
                 .map(choice => choice._fields[0])
                 .map((choice) => {
-                  console.log(choice);
                   const relativeDestination = destinations
                     .map(destination => destination._fields[0])
                     .find(destination => choice.end.low === destination.identity.low);
-                  console.log(relativeDestination);
                   return ({
                     message: choice.properties.message,
                     targetObj: relativeDestination.properties,
@@ -73,12 +79,33 @@ export default class AlbumPage extends Component {
           });
       });
   }
+  renderSlidingSection() {
+      return (
+        <div key={this.props.match.params.id} className="sliding-section-container">
+          <AlbumPageContainer album={this.state.album} artist={this.state.artist} />
+          <ChoiceContainer richChoices={this.state.richChoices} />
+        </div>
+      );
+
+  }
   render() {
     return (
       <div>
         <Link to="/"><AlbumPageHeader /></Link>
-        <AlbumPageContainer album={this.state.album} artist={this.state.artist} />
-        <ChoiceContainer richChoices={this.state.richChoices} />
+        <div className="album-page-ecouter-container">
+          <h1>Essayez d'écouter </h1>
+        </div>
+        <div className="temporary-slide-container" >
+        <ReactCSSTransitionGroup
+          transitionName="example"
+          transitionEnterTimeout={100500}
+          transitionLeaveTimeout={100500}
+
+        >
+
+          {this.renderSlidingSection()}
+        </ReactCSSTransitionGroup>
+      </div>
       </div>
     );
   }
