@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-const Home = () => {
+const Home = (props) => {
   return (
     <div className="home-container" >
       <div className="home-headers-container">
@@ -15,8 +15,8 @@ const Home = () => {
 
       </div>
       <div className="home-button-container">
-        <Link to="/dsjqklj">
-          <div className="button">
+        <Link  to="/dsqdsq">
+          <div onClick={() => props.toggleTransitionFromHome()} className="button">
             <h3>Le rock</h3>
           </div>
         </Link>
