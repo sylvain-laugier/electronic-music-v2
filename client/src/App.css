@@ -1,28 +1,170 @@
-.App {
+@font-face {
+  font-family: 'Streamster';
+  font-style: normal;
+  src: url('./fonts/Streamster.ttf')
+}
+
+@font-face {
+  font-family: 'good times';
+  src: url('./fonts/good times rg.ttf')
+}
+
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+html {  font-size:62.5%;}
+a {
+    text-decoration: none !important;
+}
+.home-container {
+  width:70vw;
+  max-width: 1170px;
+  margin:auto;
+}
+
+.home-headers-container {
+  min-height: 533px;
+}
+
+.home-header-part-1 {
+  font-family: 'good times';
+  /*background: linear-gradient(to right, #00DEFF , #FB00EE);*/
+  padding:1rem;
+  color:#FB00EE;
+  text-shadow:
+    0 0 0px #FB00EE,
+    0 0 5px #450100,
+    0 0 15px #FB00EE,
+    0 0 30px #450100;
+  letter-spacing: 10px;
+  font-size:6.6rem;
+  transition: text-shadow 0.4s ease-in;
+  z-index:11;
+  margin: unset;
+  top: 12rem;
+  position: relative;
+  max-height: 27rem;
+}
+
+.home-header-part-1:hover {
+  text-shadow:
+    0 0 10px #FB00EE,
+    0 0 25px #450100,
+    0 0 50px #FB00EE,
+    0 0 75px #450100;
+}
+
+.home-header-part-2 {
+  font-family: 'Streamster';
+  font-size:10rem;
+  color: #00DEFF;
+  letter-spacing: 5px;
+  position:relative;
+  display:block;
+  transform: rotate(-10deg);
+  text-shadow:
+    0 0 0 #00DEFF,
+    0 0 5px #450100,
+    0 0 15px #00DEFF,
+    0 0 30px #450100;
+  transition: text-shadow 0.4s ease-in;
+  z-index:12;
+  margin: unset;
+  top: -11vw;
+  left: 52rem;
+}
+
+.home-header-part-2:hover {
+  text-shadow:
+    0 0 10px #00DEFF,
+    0 0 25px #450100,
+    0 0 50px #00DEFF,
+    0 0 75px #450100;
+}
+
+.home-button-container {
+  display:flex;
+  justify-content: space-between;
+  width:30vw;
+}
+.button {
+  background: #FB00EE;
+  position: relative;
+  color:#fff;
+  text-decoration: none;
+  width:20rem;
+  height:10rem;
+  font-family: 'good times';
   text-align: center;
+  font-size:2.8rem;
+  text-shadow: none;
+  border-radius: 3px;
+  box-shadow:
+    0 0 0px #FB00EE,
+    0 0 5px #450100,
+    0 0 15px #FB00EE,
+    0 0 30px #450100;
+  display:flex;
+  transition: box-shadow 0.4s ease-in;
+
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.button:hover{
+  box-shadow:
+    0 0 5px #FB00EE,
+    0 0 15px #450100,
+    0 0 30px #FB00EE,
+    0 0 60px #450100;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+.button h3 {
+  margin:auto;
 }
 
-.App-title {
-  font-size: 1.5em;
+@-webkit-keyframes neon1 {
+  from {
+    text-shadow:
+      0 0 0px #FB00EE,
+      0 0 5px #450100,
+      0 0 15px #FB00EE,
+      0 0 30px #450100;
+  }
+  to {
+    text-shadow:
+      0 0 10px #FB00EE,
+      0 0 25px #450100,
+      0 0 25px #FB00EE,
+      0 0 50px #450100;
+  }
 }
 
-.App-intro {
-  font-size: large;
+@media (max-width: 1600px) {
+  .home-header-part-2 {
+    top: -13vw;
+  }
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+@media (max-width: 1367px) {
+  html { font-size: 50%; }
+  .home-container {
+    width:80vw;
+  }
+
+}
+@media (max-width: 1024px) {
+  html { font-size: 45%; }
+  .home-container {
+    width:90vw;
+  }
+  .home-header-part-2 {
+    top: -14vw;
+  }
+}
+@media (max-width: 767px) {
+  html { font-size: 35%; }
+  .home-container {
+    width:95vw;
+  }
+}
+@media (max-width: 400px) {
+  html { font-size: 25%; }
 }

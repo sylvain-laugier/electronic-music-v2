@@ -13,9 +13,10 @@ export default class ThreeBackground extends React.Component {
 
     this.state = {
       cubeRotation: new THREE.Euler(),
+      introAnimation: false,
     };
 
-    /*this._onAnimate = () => {
+    this._onAnimate = () => {
       // we will get this callback every frame
 
       // pretend cubeRotation is immutable.
@@ -28,7 +29,7 @@ export default class ThreeBackground extends React.Component {
           0
         ),
       });
-    };*/
+    };
   }
 
   render() {
