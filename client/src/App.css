@@ -130,13 +130,23 @@ a {
   width:90vw;
   margin-left:7.5vw;
   margin-right:2.5vw;
-  min-height:48rem;
-  margin-top: 146px;
+  min-height:52rem;
+  margin-top:-50px;
 }
 .album-page-container h1 {
-  font-size:5rem;
-  color:#fff;
   text-align:left;
+  font-family: 'Streamster';
+  font-size:10rem;
+  color: #00DEFF;
+  letter-spacing: 5px;
+  display:block;
+  transform: rotate(-7deg);
+  text-shadow:
+    0 0 0 #00DEFF,
+    0 0 5px #450100,
+    0 0 15px #00DEFF,
+    0 0 30px #450100;
+  transition: text-shadow 0.4s ease-in;
 }
 .album-display-container {
   width:75%;
