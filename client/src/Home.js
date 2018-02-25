@@ -15,7 +15,7 @@ const Home = (props) => {
 
       </div>
       <div className="home-button-container">
-        <Link  to="/dsqdsq">
+        <Link  to="/7dxKtc08dYeRVHt3p9CZJn">
           <div onClick={() => props.toggleTransitionFromHome()} className="button">
             <h3>Le rock</h3>
           </div>

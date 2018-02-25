@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import * as THREE from 'three';
-import './App.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import apiKey from './apiAuthentificate.js';
+import './App.css';
 import ThreeBackground from './ThreeBackground';
-import AlbumDisplay from './AlbumDisplay';
+import AlbumPage from './AlbumPage/AlbumPage';
 import Home from './Home';
 
 class App extends Component {
@@ -12,20 +10,12 @@ class App extends Component {
     super(props);
     this.state = {
       transitionFromHome: false,
-      albums: [],
       counterHome: 0,
     };
     this.toggleTransitionFromHome = this.toggleTransitionFromHome.bind(this);
     this.incrementCountHome = this.incrementCountHome.bind(this);
   }
-  /*componentDidMount() {
-    fetch('/albums/', {
-      method: 'GET',
-      headers: new Headers(apiKey),
-    })
-      .then(res => res.json())
-      .then(albums => this.setState({ albums: albums.map((el) => el._fields[0]) }));
-  }*/
+
   toggleTransitionFromHome() {
     this.setState({
       transitionFromHome: !this.state.transitionFromHome,
@@ -57,12 +47,25 @@ class App extends Component {
               />)
           }
         />
-        <Route path="/:id" component={AlbumDisplay} />
+        <Route
+          path="/:id"
+          render={
+            ({ location, match }) => {
+              if (!this.state.transitionFromHome) {
+                this.toggleTransitionFromHome();
+              }
+              return (<AlbumPage
+                location={location}
+                match={match}
+                toggleTransitionFromHome={this.toggleTransitionFromHome}
+              />);
+            }
+          }
+        />
       </div>
     );
   }
 }
-
 
 
 export default App;

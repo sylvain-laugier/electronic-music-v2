@@ -120,6 +120,65 @@ a {
   margin:auto;
 }
 
+.album-page-header {
+  color:#fff;
+  background: linear-gradient(to right, #00DEFF , #FB00EE);
+}
+
+.album-page-container {
+  width:90vw;
+  margin-left:7.5vw;
+  margin-right:2.5vw;
+}
+.album-page-container h1 {
+  font-size:5rem;
+  color:#fff;
+  text-align:left;
+}
+.album-display-container {
+  width:75%;
+  float:left;
+}
+.album-display-background {
+  margin: 3rem 0px;
+  background-color:#fff;
+  position:absolute;
+  width:calc(75% + 5vw);
+  height:28.1rem;
+  z-index:-5;
+  left:-5vw;
+}
+
+.album-cover {
+  float:left;
+}
+.album-cover img {
+  width:340px;
+  height:340px;
+}
+
+.album-content-container {
+  width:60%;
+  float:right;
+}
+.album-content-header-background {
+  background-color: #00DEFF;
+  height: 40px;
+  margin-right: 25px;
+}
+
+.album-content-container h2 {
+  margin-left: 20px;
+  font-size: 36px;
+  margin-top: -26px;
+  font-weight: bold;
+}
+
+.album-spotify-container {
+  float:right;
+  width:25%;
+  text-align:center;
+}
 @-webkit-keyframes neon1 {
   from {
     text-shadow:
