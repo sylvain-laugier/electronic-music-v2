@@ -129,6 +129,7 @@ a {
   width:90vw;
   margin-left:7.5vw;
   margin-right:2.5vw;
+  min-height:48rem;
 }
 .album-page-container h1 {
   font-size:5rem;
@@ -178,6 +179,20 @@ a {
   float:right;
   width:25%;
   text-align:center;
+}
+
+.album-page-choice-container {
+  display:flex;
+  flex-flow: column;
+  height:350px;
+  justify-content: space-around;
+  margin-left:10rem;
+}
+.button-album-page {
+  text-align: left;
+  font-size:1.5rem;
+  width: 1000px;
+  height:50px;
 }
 @-webkit-keyframes neon1 {
   from {

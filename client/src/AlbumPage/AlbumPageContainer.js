@@ -19,7 +19,7 @@ export default class AlbumPageContainer extends Component {
           </div>
           <div className="album-content-container">
             <div className="album-content-header-background" />
-            <h2>{`${this.props.album.name} par ${this.props.album.name}`}</h2>
+            <h2>{`${this.props.album.name} par ${this.props.artist.name}`}</h2>
             <div className="album-content-description">
               lorem ipsum
             </div>

@@ -57,12 +57,28 @@ module.exports = {
       return callback(err);
     });
   },
+  getRelatedByRelation: function(id, relation, callback){
+    const session = driver.session();
+    const resultPromise = session.run(
+      `Match(n)<-[:${relation}]-(related)
+      WHERE n._id = '${id}'
+      RETURN related
+      `
+    );
+    resultPromise.then(result => {
+      session.close();
+      const singleRecord = result.records[0]._fields[0].properties;
+      return callback(singleRecord);
+    }).catch(err => {
+      return callback(err);
+    });
+  },
   getNodeRelationships: function(id,callback){
     const session = driver.session();
     const resultPromise = session.run(
       `Match(n)-[r]->(related)
       WHERE n._id = '${id}'
-      RETURN *
+      RETURN r
       `
     );
     resultPromise.then(result => {
