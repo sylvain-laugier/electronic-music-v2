@@ -19,6 +19,7 @@ a {
   width:70vw;
   max-width: 1170px;
   margin:auto;
+
 }
 
 .home-headers-container {
@@ -130,6 +131,7 @@ a {
   margin-left:7.5vw;
   margin-right:2.5vw;
   min-height:48rem;
+  margin-top: 146px;
 }
 .album-page-container h1 {
   font-size:5rem;
@@ -184,7 +186,7 @@ a {
 .album-page-choice-container {
   display:flex;
   flex-flow: column;
-  height:350px;
+  height:250px;
   justify-content: space-around;
   margin-left:10rem;
 }

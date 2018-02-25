@@ -14,7 +14,7 @@ export default class ThreeBackground extends React.Component {
     // React will think that things have changed when they have not.
 
     this.state = {
-      cubeRotation: new THREE.Euler(),
+      cubeRotation: new THREE.Euler(0,0,0),
       cameraPosition: new THREE.Vector3(0, 0, 3),
       counter: 120,
     };
@@ -24,7 +24,7 @@ export default class ThreeBackground extends React.Component {
       // we will get this callback every frame      // pretend cubeRotation is immutable.
       // this helps with updates and pure rendering.
       // React will be sure that the rotation has now updated.
-      if (this.props.transitionFromHome && this.props.counterHome < this.state.counter) {
+      if (this.props.transitionFromHome && this.props.counterHome < this.state.counter ) {
         this.props.incrementCountHome();
         const x = this.props.counterHome / this.state.counter;
         const speed = helper.easeInOutQuint(x) - helper.easeInOutQuint(x - 0.01);
@@ -35,6 +35,10 @@ export default class ThreeBackground extends React.Component {
             0,
           ),
         });
+      } else if (this.props.transitionFromHome) {
+        this.setState({
+          cameraPosition: new THREE.Vector3(0, this.state.cameraPosition.y += (0.0003825*2), this.state.cameraPosition.z -= 0.002),
+        })
       }
 
     /*this.setState({
@@ -73,17 +77,33 @@ export default class ThreeBackground extends React.Component {
         <mesh
           rotation={this.state.cubeRotation}
         >
+
           <planeGeometry
             width={100}
             height={100}
             widthSegments={150}
             heightSegments={150}
           />
+
           <meshBasicMaterial
             color={0xFB00EE}
             wireframe
           />
         </mesh>
+        {/* }
+        <mesh
+          rotation={this.state.cubeRotation}
+          position={new THREE.Vector3(-5,20,-50)}
+        >
+          <sphereGeometry
+          radius={5}
+          widthSegments={32}
+          heightSegments={32}
+        />
+          <meshBasicMaterial
+            color={0xEF642D}
+          />
+        </mesh>*/}
       </scene>
     </React3>);
   }
