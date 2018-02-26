@@ -31,13 +31,14 @@ export default class ManageAlbum extends Component {
     this.setState({ currentId: nextProps.match.params.id }, () => this.updateItself());
   }
   getRelationShips() {
-    fetch(`/albums/relationships/${this.state.currentId}`, {
+    fetch(`/albums/related/${this.state.currentId}`, {
       method: 'GET',
       headers: new Headers(apiKey()),
     })
       .then(res => res.json())
       .then((relationships) => {
-        const onlyFields = relationships.map(relation => relation._fields);
+        const onlyFields = relationships.map(relation => relation._fields[0]);
+        console.log(onlyFields);
         this.setState({
           relations: onlyFields,
         });
@@ -82,9 +83,10 @@ export default class ManageAlbum extends Component {
   }
   renderRelations() {
     if (this.state.relations.length > 0) {
+      console.log(this.state.relations);
       return this.state.relations.map(relation =>
         (<Relation
-          key={`${relation[1].start.low}${relation[1].end.low}`}
+          key={`${relation.identity.low}`}
           relation={relation}
         />));
     }

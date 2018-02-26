@@ -11,11 +11,12 @@ export default class Relation extends Component {
     };
   }
   render() {
+    console.log(this.props.relation);
     return (
       <div className="relation-container">
         <Album
-          id={this.props.relation[2].properties._id}
-          overlayTitle={this.props.relation[1].properties.message}
+          id={this.props.relation.properties._id}
+          overlayTitle={ ""/*this.props.relation[0].properties.message*/}
           width="100%"
           hasBeenSearched
 
