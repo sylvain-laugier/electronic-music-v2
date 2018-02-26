@@ -22,13 +22,13 @@ export default class AlbumPage extends Component {
   }
 
   componentDidMount() {
-    this.updateComponent(this.props);
+    setTimeout(() => this.updateComponent(this.props), 2000);
+
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.match.params.id !== nextProps.match.params.id) {
       this.setState({
-        newLoading: true,
       }, () => this.updateComponent(nextProps));
     }
   }
@@ -80,13 +80,25 @@ export default class AlbumPage extends Component {
       });
   }
   renderSlidingSection() {
+    if (!this.state.newLoading){
       return (
+        <ReactCSSTransitionGroup
+          transitionName="example"
+          transitionEnterTimeout={600}
+          transitionLeaveTimeout={600}
+          transitionAppear
+          transitionAppearTimeout={600}
+          className="temporary-slide-container"
+          component="div"
+        >
         <div key={this.props.match.params.id} className="sliding-section-container">
           <AlbumPageContainer album={this.state.album} artist={this.state.artist} />
           <ChoiceContainer richChoices={this.state.richChoices} />
         </div>
+        </ReactCSSTransitionGroup>
       );
-
+    }
+    return null;
   }
   render() {
     return (
@@ -95,17 +107,9 @@ export default class AlbumPage extends Component {
         <div className="album-page-ecouter-container">
           <h1>Essayez d'écouter </h1>
         </div>
-        <div className="temporary-slide-container" >
-        <ReactCSSTransitionGroup
-          transitionName="example"
-          transitionEnterTimeout={100500}
-          transitionLeaveTimeout={100500}
-
-        >
 
           {this.renderSlidingSection()}
-        </ReactCSSTransitionGroup>
-      </div>
+
       </div>
     );
   }

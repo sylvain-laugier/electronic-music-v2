@@ -12,6 +12,10 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
 html {  font-size:62.5%;}
+
+body {
+  overflow-x: hidden;
+}
 a {
     text-decoration: none !important;
 }
@@ -224,35 +228,45 @@ a {
   height:50px;
 }
 
-.temporary-slide-container {
+
+.temporary-slide-container .sliding-section-container{
+
 
 }
 
-.temporary-slide-container span{
+.temporary-slide-container{
+  display: flex;
+  flex-direction:row-reverse;
+  justify-content: flex-end;
   width:200vw;
-  display: inline-block;
+  overflow-x:hidden;
 }
-
-.temporary-slide-container span div{
-
- }
 
 .example-enter {
-  transform: translate(150%);
+  transform: translate(0vw);
 }
 
 .example-enter.example-enter-active {
-  transform: translate(0%);
-  transition: transform 100500ms ease-in-out;
+  transform: translate(-100vw);
+  transition: transform 600ms ease;
 }
 
 .example-leave {
-  transform: translate(0%);
+  transform: translate(0vw);
 }
 
 .example-leave.example-leave-active {
-  transform: translate(-100%);
- transition: transform 100500ms ease-in-out;
+  transform: translate(-100vw);
+ transition: transform 600ms ease;
+}
+
+.example-appear {
+  transform: translate(100vw);
+}
+
+.example-appear.example-appear-active {
+  transform: translate(0vw);
+ transition: transform 600ms ease ;
 }
 @-webkit-keyframes neon1 {
   from {
