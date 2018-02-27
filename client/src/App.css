@@ -19,6 +19,21 @@ body {
 a {
     text-decoration: none !important;
 }
+
+
+
+
+
+
+/* --------------------------------------------
+   HOME PAGE-----------------------------------
+   --------------------------------------------*/
+
+
+
+
+
+
 .home-container {
   width:70vw;
   max-width: 1170px;
@@ -125,94 +140,133 @@ a {
   margin:auto;
 }
 
+
+
+
+
+
+
+
+
+/* --------------------------------------------
+   ALBUM PAGE-----------------------------------
+   --------------------------------------------*/
+
+
+
+
+
+
+
+
+
+
 .album-page-header {
   color:#fff;
   background: linear-gradient(to right, #00DEFF , #FB00EE);
-}
-
-.album-page-container {
-  width:90vw;
-  margin-left:7.5vw;
-  margin-right:2.5vw;
-  min-height:35rem;
+  height:10vh;
 }
 
 .album-page-ecouter-container {
   margin-top:-50px;
-}
-.album-page-ecouter-container h1 {
-  text-align:left;
-  font-family: 'Streamster';
-  font-size:10rem;
-  color: #00DEFF;
-  letter-spacing: 5px;
-  display:block;
-  transform: rotate(-7deg);
-  text-shadow:
-    0 0 0 #00DEFF,
-    0 0 5px #450100,
-    0 0 15px #00DEFF,
-    0 0 30px #450100;
-  transition: text-shadow 0.4s ease-in;
+  margin-left:7.5vw;
 }
 
-.album-page-ecouter-container h1:hover {
-  text-shadow:
-    0 0 10px #00DEFF,
-    0 0 25px #450100,
-    0 0 50px #00DEFF,
-    0 0 75px #450100;
-}
-.album-display-container {
-  width:75%;
-  float:left;
-}
-.album-display-background {
-  margin: 3rem 0px;
-  background-color:#fff;
-  position:absolute;
-  width:calc(75% + 1vw);
-  height:28.1rem;
-  z-index:-5;
-  left:0;
+  .album-page-ecouter-container h1 {
+    text-align:left;
+    font-family: 'Streamster';
+    font-size:10rem;
+    color: #00DEFF;
+    letter-spacing: 5px;
+    display:block;
+    transform: rotate(-7deg);
+    text-shadow:
+      0 0 0 #00DEFF,
+      0 0 5px #450100,
+      0 0 15px #00DEFF,
+      0 0 30px #450100;
+    transition: text-shadow 0.4s ease-in;
+  }
+
+  .album-page-ecouter-container h1:hover {
+    text-shadow:
+      0 0 10px #00DEFF,
+      0 0 25px #450100,
+      0 0 50px #00DEFF,
+      0 0 75px #450100;
+  }
+
+.album-page-global-album-container {
+  width:100vw;
 }
 
-.album-cover {
-  float:left;
-}
-.album-cover img {
-  width:340px;
-  height:340px;
-}
+  .album-page-container {
+    display: flex;
+    width: 700px;
+    justify-content: space-between;
+    margin-left:15vw;
+    flex-direction: column;
+  }
+    .album-cover {
+      float:left;
+    }
 
-.album-content-container {
-  width:60%;
-  float:right;
-}
-.album-content-header-background {
-  background-color: #00DEFF;
-  height: 40px;
-  margin-right: 25px;
-}
+    .album-cover img {
+      width:340px;
+      height:340px;
+    }
 
-.album-content-container h2 {
-  margin-left: 20px;
-  font-size: 36px;
-  margin-top: -26px;
-  font-weight: bold;
-}
+    .album-content-header-background {
+      background-color: rgba(0,0,0,0.6);
+      width: 100%;
+    }
 
-.album-spotify-container {
-  float:right;
-  width:25%;
-  text-align:center;
-}
+    .album-content-header-background  h2 {
+      font-family: 'good times';
+      /*background: linear-gradient(to right, #00DEFF , #FB00EE);*/
+      padding:1rem;
+      color:#FB00EE;
+      text-shadow:
+        0 0 0px #FB00EE,
+        0 0 5px #450100,
+        0 0 15px #FB00EE,
+        0 0 30px #450100;
+      letter-spacing: 10px;
+      font-size:4rem;
+      transition: text-shadow 0.4s ease-in;
+      z-index:11;
+      margin: unset;
+      max-height: 27rem;
+      line-height: 72px;
+    }
+    .album-content-header-background  h2 span {
+      font-family: 'Streamster';
+      font-size:7rem;
+      color: #00DEFF;
+      float: right;
+      letter-spacing: 5px;
+      transform: rotate(-10deg);
+      text-shadow:
+        0 0 0 #00DEFF,
+        0 0 5px #450100,
+        0 0 15px #00DEFF,
+        0 0 30px #450100;
+      transition: text-shadow 0.4s ease-in;
+      z-index:12;
+      transform: rotate(-10deg);
+    }
 
-.album-spotify-container iframe {
-  background:white;
-  width:300px;
-  height: 315px;
-}
+
+    .album-spotify-container {
+      float:right;
+      text-align:center;
+    }
+
+    .album-spotify-container iframe {
+      background:white;
+      width:300px;
+      height: 315px;
+    }
 
 .album-page-choice-container {
   display:flex;
@@ -221,12 +275,28 @@ a {
   justify-content: space-around;
   margin-left:10rem;
 }
+
 .button-album-page {
   text-align: left;
   font-size:1.5rem;
-  width: 1000px;
   height:50px;
 }
+
+
+
+
+
+
+
+
+/* --------------------------------------------
+   ANIMATIONS-----------------------------------
+   --------------------------------------------*/
+
+
+
+
+
 
 
 .temporary-slide-container .sliding-section-container{
@@ -284,6 +354,17 @@ a {
       0 0 50px #450100;
   }
 }
+
+
+
+
+/* --------------------------------------------
+   MOBILE-----------------------------------
+   --------------------------------------------*/
+
+
+
+
 
 @media (max-width: 1600px) {
   .home-header-part-2 {

@@ -11,28 +11,23 @@ export default class AlbumPageContainer extends Component {
   render() {
     return (
       <div className="album-page-container">
-        <div className="album-display-container">
-          <div className="album-display-background" />
+        <div className="album-content-header-background" >
+          <h2>{`${this.props.album.name} `}<br /><span>{`${this.props.artist.name}`}</span></h2>
+        </div>
+        <div className="album-content-container" >
           <div className="album-cover">
             <img alt="" src={this.props.album.image}/>
           </div>
-          <div className="album-content-container">
-            <div className="album-content-header-background" />
-            <h2>{`${this.props.album.name} par ${this.props.artist.name}`}</h2>
-            <div className="album-content-description">
-              lorem ipsum
-            </div>
+          <div className="album-spotify-container" >
+            <iframe
+              src={`https://open.spotify.com/embed?uri=${this.props.album.url}?si=n6Ki-iE7Sg6gcpuywEnQCQ&theme=white`}
+              width="300"
+              height="315"
+              frameBorder="0"
+              allowTransparency
+              title="spotify-wrapper"
+            />
           </div>
-        </div>
-        <div className="album-spotify-container" >
-          <iframe
-            src={`https://open.spotify.com/embed?uri=${this.props.album.url}?si=n6Ki-iE7Sg6gcpuywEnQCQ&theme=white`}
-            width="300"
-            height="315"
-            frameBorder="0"
-            allowTransparency
-            title="spotify-wrapper"
-          />
         </div>
       </div>
     );

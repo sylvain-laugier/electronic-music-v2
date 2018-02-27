@@ -16,6 +16,7 @@ export default class AlbumPage extends Component {
       artist: {},
       richChoices: [],
       newLoading: true,
+      activeMode: true,
     };
     this.updateComponent = this.updateComponent.bind(this);
     this.renderSlidingSection = this.renderSlidingSection.bind(this);
@@ -82,20 +83,19 @@ export default class AlbumPage extends Component {
   renderSlidingSection() {
     if (!this.state.newLoading){
       return (
-        <ReactCSSTransitionGroup
+        /*<ReactCSSTransitionGroup
           transitionName="example"
           transitionEnterTimeout={600}
-          transitionLeaveTimeout={600}
+          transitionEnter={false}
           transitionAppear
           transitionAppearTimeout={600}
           className="temporary-slide-container"
           component="div"
-        >
-        <div key={this.props.match.params.id} className="sliding-section-container">
-          <AlbumPageContainer album={this.state.album} artist={this.state.artist} />
-          <ChoiceContainer richChoices={this.state.richChoices} />
-        </div>
-        </ReactCSSTransitionGroup>
+        >*/
+        <div >
+
+        </div>/*
+      </ReactCSSTransitionGroup>*/
       );
     }
     return null;
@@ -107,9 +107,10 @@ export default class AlbumPage extends Component {
         <div className="album-page-ecouter-container">
           <h1>Essayez d'écouter </h1>
         </div>
-
-          {this.renderSlidingSection()}
-
+        <div className="album-page-global-album-container">
+          <AlbumPageContainer album={this.state.album} artist={this.state.artist} />
+          <ChoiceContainer richChoices={this.state.richChoices} />
+        </div>
       </div>
     );
   }
