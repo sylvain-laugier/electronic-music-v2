@@ -102,7 +102,7 @@ export default class AlbumPage extends Component {
   }
   render() {
     return (
-      <div>
+      <div className="Album-Page">
         <Link to="/"><AlbumPageHeader /></Link>
         <div className="album-page-ecouter-container">
           <h1>Essayez d'écouter </h1>

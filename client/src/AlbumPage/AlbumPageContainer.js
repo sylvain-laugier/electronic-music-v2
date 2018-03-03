@@ -1,33 +1,27 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import SpotifyContainer from './SpotifyContainer';
+
 export default class AlbumPageContainer extends Component {
   constructor(props){
     super(props)
     this.state = {
-      album: {}
+      loading: true,
     }
   }
   render() {
     return (
-      <div className="album-page-container">
+      <div className="Album-Page-Container">
         <div className="album-content-header-background" >
-          <h2>{`${this.props.album.name} `}<br /><span>{`${this.props.artist.name}`}</span></h2>
+          <h2>{`${this.props.album.name} `}<br /> par</h2>
+          <h3>{`${this.props.artist.name}`}</h3>
         </div>
         <div className="album-content-container" >
           <div className="album-cover">
             <img alt="" src={this.props.album.image}/>
           </div>
-          <div className="album-spotify-container" >
-            <iframe
-              src={`https://open.spotify.com/embed?uri=${this.props.album.url}?si=n6Ki-iE7Sg6gcpuywEnQCQ&theme=white`}
-              width="300"
-              height="315"
-              frameBorder="0"
-              allowTransparency
-              title="spotify-wrapper"
-            />
-          </div>
+          <SpotifyContainer url={this.props.album.url}/>
         </div>
       </div>
     );

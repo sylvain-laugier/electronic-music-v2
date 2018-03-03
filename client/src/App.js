@@ -35,6 +35,7 @@ class App extends Component {
           counterHome={this.state.counterHome}
           incrementCountHome={this.incrementCountHome}
         />
+        <div className="background" />
         <Route
           exact
           path="/"
