@@ -355,12 +355,12 @@ a {
     width: calc(1040px + 15vw);
     display: flex;
     align-items: flex-end;
+    justify-content: space-evenly;
 
     .Album-Page-Container {
       display: flex;
       width: 700px;
       justify-content: space-between;
-      margin-left:15vw;
       flex-direction: column;
 
       .album-content-header-background {
@@ -406,6 +406,9 @@ a {
           width:100%;
         }
       }
+      .album-content-header-background--minimzed{
+
+      }
       .album-content-container {
         display: flex;
         justify-content: space-between;
@@ -424,11 +427,14 @@ a {
         }
       }/* album-content-container */
     }/*album-page-container */
+    .Album-Page-Container-minimized {
+      width:180px;
+    }
     .album-page-choice-container {
       display:flex;
       flex-flow: column;
       justify-content: space-evenly;
-      margin: 0px auto;
+      margin: 0px;
       height: 340px;
 
       .button-album-page {

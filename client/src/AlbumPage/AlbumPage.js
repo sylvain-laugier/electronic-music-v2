@@ -17,6 +17,7 @@ export default class AlbumPage extends Component {
       previousAlbum: {},
       previousArtist: {},
       richChoices: [],
+      previousChoice: [],
       newLoading: true,
       activeMode: true,
     };
@@ -36,6 +37,7 @@ export default class AlbumPage extends Component {
         newLoading: true,
         previousAlbum: nextProps.location.state ? nextProps.location.state.originAlbum : {},
         previousArtist: nextProps.location.state ? nextProps.location.state.originArtist : {},
+        previousChoice: nextProps.location.state ? nextProps.location.state.richChoice : [],
       }, () => this.updateComponent(nextProps));
     }
   }
@@ -100,6 +102,7 @@ export default class AlbumPage extends Component {
         minimized
         album={this.state.previousAlbum}
         artist={this.state.previousArtist}
+        richChoice={this.state.previousChoice}
       />
     );
   }

@@ -32,6 +32,7 @@ export default class AlbumContentHeader extends Component {
         top: '4rem',
       },
     };
+    this.renderHeader = this.renderHeader.bind(this);
   }
   componentWillReceiveProps(nextProps) {
     if (typeof nextProps.artist.name !== 'undefined') {
@@ -40,12 +41,26 @@ export default class AlbumContentHeader extends Component {
       });
     }
   }
-  render() {
+  renderHeader() {
+    if (this.props.minimized) {
+      return (
+        <div className="album-content-header-background album-content-header-background--minimzed" >
+          <h2>{`${this.props.album.name} `}</h2>
+        </div>
+      )
+    }
     return (
       <div className="album-content-header-background" >
         <h2>{`${this.props.album.name} `}<br /> <span>par</span></h2>
         <h3 style={this.state.styleArtist}>{`${this.props.artist.name}`}</h3>
       </div>
-    )
+    );
+  }
+  render() {
+    return (
+      <div>
+        {this.renderHeader()}
+      </div>
+    );
   }
 }

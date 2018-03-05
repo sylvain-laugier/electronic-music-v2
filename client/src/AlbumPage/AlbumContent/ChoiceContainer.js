@@ -8,6 +8,12 @@ export default class ChoiceContainer extends Component {
     this.state = {
       album: {}
     };
+    this.chooseTarget = this.chooseTarget.bind(this);
+  }
+  chooseTarget() {
+    if (this.props.targetOrigin) {
+
+    }
   }
   render() {
     if (this.props.richChoices.length > 0) {
@@ -17,11 +23,11 @@ export default class ChoiceContainer extends Component {
             <Link
               key={richChoice.targetObj._id}
               to={{
-                pathname: `/${richChoice.targetObj._id}`,
+                pathname: this.props.targetOrigin ? `/${this.props.originAlbum._id}` : `/${richChoice.targetObj._id}`,
                 state: {
                   originAlbum: this.props.originAlbum,
                   originArtist: this.props.originArtist,
-                  richChoice: richChoice,
+                  richChoice: [richChoice],
                 },
               }}
             >

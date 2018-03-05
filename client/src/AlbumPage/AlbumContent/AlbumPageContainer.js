@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import AlbumContentHeader from './AlbumContentHeader';
 import AlbumContentContainer from './AlbumContentContainer';
+import ChoiceContainer from './ChoiceContainer';
 
 export default class AlbumPageContainer extends Component {
   constructor(props) {
@@ -14,10 +15,20 @@ export default class AlbumPageContainer extends Component {
   }
   selectMode() {
     if (this.props.minimized) {
-      return <AlbumContentHeader minimized album={this.props.album} artist={this.props.artist} />
+      return (
+        <div className=" Album-Page-Container Album-Page-Container-minimized">
+          <AlbumContentHeader minimized album={this.props.album} artist={this.props.artist} />
+          <ChoiceContainer
+            richChoices={this.props.richChoice}
+            originAlbum={this.props.album}
+            originArtist={this.props.artist}
+            targetOrigin
+          />
+        </div>
+      );
     }
     return (
-      <div>
+      <div className="Album-Page-Container">
         <AlbumContentHeader album={this.props.album} artist={this.props.artist} />
         <AlbumContentContainer album={this.props.album} />
       </div>
@@ -25,7 +36,7 @@ export default class AlbumPageContainer extends Component {
   }
   render() {
     return (
-      <div className="Album-Page-Container">
+      <div>
         {this.selectMode()}
       </div>
     );

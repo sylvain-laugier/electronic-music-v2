@@ -227,13 +227,13 @@ a {
     width: calc(1040px + 15vw);
     display: flex;
     align-items: flex-end;
+    justify-content: space-evenly;
     /*album-page-container */
     /*album-page-choice-container*/ }
     .Album-Page .album-page-global-album-container .Album-Page-Container {
       display: flex;
       width: 700px;
       justify-content: space-between;
-      margin-left: 15vw;
       flex-direction: column;
       /* album-content-container */ }
       .Album-Page .album-page-global-album-container .Album-Page-Container .album-content-header-background {
@@ -275,11 +275,13 @@ a {
           text-align: center; }
           .Album-Page .album-page-global-album-container .Album-Page-Container .album-content-container .album-spotify-container iframe {
             background: white; }
+    .Album-Page .album-page-global-album-container .Album-Page-Container-minimized {
+      width: 180px; }
     .Album-Page .album-page-global-album-container .album-page-choice-container {
       display: flex;
       flex-flow: column;
       justify-content: space-evenly;
-      margin: 0px auto;
+      margin: 0px;
       height: 340px; }
       .Album-Page .album-page-global-album-container .album-page-choice-container .button-album-page {
         text-align: left;
