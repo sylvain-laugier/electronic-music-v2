@@ -13,7 +13,7 @@ class App extends Component {
       counterHome: 0,
     };
     this.toggleTransitionFromHome = this.toggleTransitionFromHome.bind(this);
-    this.incrementCountHome = this.incrementCountHome.bind(this);
+    
   }
 
   toggleTransitionFromHome() {
@@ -21,11 +21,7 @@ class App extends Component {
       transitionFromHome: !this.state.transitionFromHome,
     });
   }
-  incrementCountHome() {
-    this.setState({
-      counterHome: this.state.counterHome += 1,
-    });
-  }
+
   render() {
     return (
       <div className="App">

@@ -17,16 +17,22 @@ export default class ThreeBackground extends React.Component {
       cubeRotation: new THREE.Euler(0,0,0),
       cameraPosition: new THREE.Vector3(0, 0, 3),
       counter: 120,
+      counterHome: 0,
     };
 
+    this.incrementCountHome = () => {
+      this.setState({
+        counterHome: this.state.counterHome += 1,
+      });
+    }
 
     this.onAnimate = () => {
       // we will get this callback every frame      // pretend cubeRotation is immutable.
       // this helps with updates and pure rendering.
       // React will be sure that the rotation has now updated.
-      if (this.props.transitionFromHome && this.props.counterHome < this.state.counter ) {
-        this.props.incrementCountHome();
-        const x = this.props.counterHome / this.state.counter;
+      if (this.props.transitionFromHome && this.state.counterHome < this.state.counter ) {
+        this.incrementCountHome();
+        const x = this.state.counterHome / this.state.counter;
         const speed = helper.easeInOutQuint(x) - helper.easeInOutQuint(x - 0.01);
         this.setState({
           cubeRotation: new THREE.Euler(

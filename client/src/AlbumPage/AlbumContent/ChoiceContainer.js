@@ -14,7 +14,17 @@ export default class ChoiceContainer extends Component {
       return (
         <div className="album-page-choice-container">
           {this.props.richChoices.map(richChoice => (
-            <Link  to={`/${richChoice.targetObj._id}`}>
+            <Link
+              key={richChoice.targetObj._id}
+              to={{
+                pathname: `/${richChoice.targetObj._id}`,
+                state: {
+                  originAlbum: this.props.originAlbum,
+                  originArtist: this.props.originArtist,
+                  richChoice: richChoice,
+                },
+              }}
+            >
               <div className="button button-album-page">
                 <p>{richChoice.message}</p>
               </div>
