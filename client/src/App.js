@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 import ThreeBackground from './ThreeBackground';
-import AlbumPage from './AlbumPage/AlbumPage';
+import AlbumFetcher from './AlbumPage/AlbumFetcher';
 import Home from './Home';
 
 class App extends Component {
@@ -13,7 +13,7 @@ class App extends Component {
       counterHome: 0,
     };
     this.toggleTransitionFromHome = this.toggleTransitionFromHome.bind(this);
-    
+
   }
 
   toggleTransitionFromHome() {
@@ -51,7 +51,7 @@ class App extends Component {
               if (!this.state.transitionFromHome) {
                 this.toggleTransitionFromHome();
               }
-              return (<AlbumPage
+              return (<AlbumFetcher
                 location={location}
                 match={match}
                 toggleTransitionFromHome={this.toggleTransitionFromHome}
