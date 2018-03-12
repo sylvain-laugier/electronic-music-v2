@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import AlbumContentHeader from './AlbumContentHeader';
 import AlbumContentContainer from './AlbumContentContainer';
-import ChoiceContainer from './ChoiceContainer';
+import ChoiceContainer from '../Choices/ChoiceContainer';
 
 export default class AlbumPageContainer extends Component {
   constructor(props) {

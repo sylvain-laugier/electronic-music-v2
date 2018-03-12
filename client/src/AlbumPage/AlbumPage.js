@@ -7,7 +7,8 @@ import PropTypesValue from '../lib/PropTypesValues';
 
 import AlbumPageHeader from './AlbumPageHeader';
 import AlbumPageContainer from './AlbumContent/AlbumPageContainer';
-import ChoiceContainer from './AlbumContent/ChoiceContainer';
+import ChoiceContainer from './Choices/ChoiceContainer';
+import PinkTitle from './AlbumHeaders/PinkTitle';
 
 const { albumShape, artistShape, richChoiceShape } = PropTypesValue;
 const helpers = {
@@ -60,10 +61,8 @@ export default class AlbumPage extends Component {
     return (
       <div className="Album-Page">
         <Link to="/"><AlbumPageHeader /></Link>
-        <div className="album-page-ecouter-container">
-          <h1>Essayez d'écouter </h1>
-        </div>
-          {this.renderSlidingSection()}
+        <PinkTitle title="Essayez d'écouter" />
+        {this.renderSlidingSection()}
       </div>
     );
   }
