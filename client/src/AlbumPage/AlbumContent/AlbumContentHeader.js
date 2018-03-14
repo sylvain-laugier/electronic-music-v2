@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+
+import StreamsterTitle from '../AlbumHeaders/StreamsterTitle';
+import PrismTitle from '../AlbumHeaders/PrismTitle';
 
 const fontSizeGenerator = (size) => {
   if (size <= 10) {
@@ -35,9 +37,9 @@ export default class AlbumContentHeader extends Component {
     this.renderHeader = this.renderHeader.bind(this);
   }
   componentWillReceiveProps(nextProps) {
-    if (typeof nextProps.artist.name !== 'undefined') {
+    if (typeof nextProps.artistName === 'string') {
       this.setState({
-        styleArtist: fontSizeGenerator(nextProps.artist.name.length),
+        styleArtist: fontSizeGenerator(nextProps.artistName.length),
       });
     }
   }
@@ -45,14 +47,20 @@ export default class AlbumContentHeader extends Component {
     if (this.props.minimized) {
       return (
         <div className="album-content-header-background album-content-header-background--minimzed" >
-          <h2>{`${this.props.album.name} `}</h2>
+          <PrismTitle>{`${this.props.albumName} `}</PrismTitle>
         </div>
-      )
+      );
     }
     return (
       <div className="album-content-header-background" >
-        <h2>{`${this.props.album.name} `}<br /> <span>par</span></h2>
-        <h3 style={this.state.styleArtist}>{`${this.props.artist.name}`}</h3>
+        <PrismTitle>
+          <div>{`${this.props.albumName} `}<br /> <span>par</span></div>
+        </PrismTitle>
+        <StreamsterTitle
+          style={this.state.styleArtist}
+        >
+          {`${this.props.artistName}`}
+        </StreamsterTitle>
       </div>
     );
   }
@@ -64,3 +72,14 @@ export default class AlbumContentHeader extends Component {
     );
   }
 }
+
+AlbumContentHeader.defaultProps = {
+  minimized: false,
+  artistName: null,
+};
+
+AlbumContentHeader.propTypes = {
+  albumName: PropTypes.string.isRequired,
+  artistName: PropTypes.string,
+  minimized: PropTypes.bool,
+};

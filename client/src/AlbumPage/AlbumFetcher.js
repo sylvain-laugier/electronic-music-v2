@@ -2,22 +2,18 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import apiKey from '../apiAuthentificate';
 
-import PropTypesValue from '../lib/PropTypesValues';
+import { albumShape, richChoiceShape } from '../lib/PropTypesValues';
 
 import AlbumPage from './AlbumPage';
-
-const { albumShape, artistShape, richChoiceShape } = PropTypesValue;
 
 export default class AlbumFetcher extends Component {
   constructor(props) {
     super(props);
     this.state = {
       album: {},
-      artist: {},
       previousAlbum: {},
-      previousArtist: {},
       richChoices: [],
-      previousChoice: [],
+      previousChoice: {},
     };
     this.updateComponent = this.updateComponent.bind(this);
   }
@@ -31,24 +27,29 @@ export default class AlbumFetcher extends Component {
     if (this.props.match.params.id !== nextProps.match.params.id) {
       this.setState({
         previousAlbum: nextProps.location.state ? nextProps.location.state.originAlbum : {},
-        previousArtist: nextProps.location.state ? nextProps.location.state.originArtist : {},
-        previousChoice: nextProps.location.state ? nextProps.location.state.richChoice : [],
+        previousChoice: nextProps.location.state ? nextProps.location.state.richChoice : {},
       }, () => this.updateComponent(nextProps));
     }
   }
   updateComponent(props) {
+    // get album first then the artist and merge the two
     fetch(`/albums/${props.match.params.id}`, {
       method: 'GET',
       headers: new Headers(apiKey),
     })
       .then(res => res.json())
-      .then(album => this.setState({ album }));
-    fetch(`/albums/artist/${props.match.params.id}`, {
-      method: 'GET',
-      headers: new Headers(apiKey),
-    })
-      .then(res => res.json())
-      .then(artist => this.setState({ artist }));
+      .then((album) => {
+        fetch(`/albums/artist/${props.match.params.id}`, {
+          method: 'GET',
+          headers: new Headers(apiKey),
+        })
+          .then(res => res.json())
+          .then((artist) => {
+            const albumObject = Object.assign({ artistName: artist.name }, album);
+            this.setState({ album: albumObject });
+          });
+      });
+    // Get all the related albums and set them in a rich choice array
     fetch(`/albums/related/${props.match.params.id}`, {
       method: 'GET',
       headers: new Headers(apiKey),
@@ -87,18 +88,14 @@ export default class AlbumFetcher extends Component {
   render() {
     const {
       album,
-      artist,
       previousAlbum,
-      previousArtist,
       richChoices,
       previousChoice,
     } = this.state;
     return (
       <AlbumPage
         album={album}
-        artist={artist}
         previousAlbum={previousAlbum}
-        previousArtist={previousArtist}
         richChoices={richChoices}
         previousChoice={previousChoice}
       />
@@ -122,8 +119,7 @@ AlbumFetcher.propTypes = {
     search: PropTypes.string.isRequired,
     state: PropTypes.shape({
       originAlbum: PropTypes.shape(albumShape).isRequired,
-      originArtist: PropTypes.shape(artistShape).isRequired,
-      richChoice: PropTypes.arrayOf(PropTypes.shape(richChoiceShape)).isRequired,
+      richChoice: PropTypes.PropTypes.shape(richChoiceShape).isRequired,
     }),
   }).isRequired,
 };

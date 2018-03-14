@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'; // ES6
 
-import PropTypesValue from '../lib/PropTypesValues';
+import { albumShape, richChoiceShape } from '../lib/PropTypesValues';
 
 import AlbumPageHeader from './AlbumPageHeader';
-import AlbumPageContainer from './AlbumContent/AlbumPageContainer';
+import CurrentAlbum from './AlbumContent/CurrentAlbum';
+import PreviousAlbum from './AlbumContent/PreviousAlbum';
 import ChoiceContainer from './Choices/ChoiceContainer';
-import PinkTitle from './AlbumHeaders/PinkTitle';
+import StreamsterTitle from './AlbumHeaders/StreamsterTitle';
 
-const { albumShape, artistShape, richChoiceShape } = PropTypesValue;
 const helpers = {
   objectIsEmpty: obj => Object.keys(obj).length === 0 && obj.constructor === Object,
 };
@@ -19,18 +19,16 @@ export default class AlbumPage extends Component {
   constructor(props) {
     super(props);
     this.renderSlidingSection = this.renderSlidingSection.bind(this);
-    this.testForEmptyState = this.testForEmptyState.bind(this);
+    this.showPreviousAlbum = this.showPreviousAlbum.bind(this);
   }
 
-  testForEmptyState() {
+  showPreviousAlbum() {
     if (helpers.objectIsEmpty(this.props.previousAlbum)) {
       return null;
     }
     return (
-      <AlbumPageContainer
-        minimized
+      <PreviousAlbum
         album={this.props.previousAlbum}
-        artist={this.props.previousArtist}
         richChoice={this.props.previousChoice}
       />
     );
@@ -46,12 +44,11 @@ export default class AlbumPage extends Component {
         component="div"
       >
         <div key={this.props.album._id} className="album-page-global-album-container">
-          {this.testForEmptyState()}
-          <AlbumPageContainer album={this.props.album} artist={this.props.artist} />
+          {this.showPreviousAlbum()}
+          <CurrentAlbum album={this.props.album} />
           <ChoiceContainer
             richChoices={this.props.richChoices}
             originAlbum={this.props.album}
-            originArtist={this.props.artist}
           />
         </div>
       </ReactCSSTransitionGroup>
@@ -61,7 +58,9 @@ export default class AlbumPage extends Component {
     return (
       <div className="Album-Page">
         <Link to="/"><AlbumPageHeader /></Link>
-        <PinkTitle title="Essayez d'écouter" />
+        <StreamsterTitle classNameProp="album-page-ecouter-container">
+          Essayez d'écouter
+        </StreamsterTitle>
         {this.renderSlidingSection()}
       </div>
     );
@@ -70,15 +69,12 @@ export default class AlbumPage extends Component {
 
 AlbumPage.defaultProps = {
   previousAlbum: {},
-  previousArtist: {},
   previousChoice: [],
 };
 
 AlbumPage.propTypes = {
   album: PropTypes.shape(albumShape).isRequired,
-  artist: PropTypes.shape(artistShape).isRequired,
   richChoices: PropTypes.arrayOf(PropTypes.shape(richChoiceShape)).isRequired,
   previousAlbum: PropTypes.shape(albumShape),
-  previousArtist: PropTypes.shape(artistShape),
-  previousChoice: PropTypes.arrayOf(PropTypes.shape(richChoiceShape)),
+  previousChoice: PropTypes.shape(richChoiceShape),
 };

@@ -11,7 +11,7 @@
 html {
   font-size: 62.5%; }
 
-h1:hover, h1 span:hover, h2:hover, h2 span:hover, h3:hover {
+h1:hover, h1 span:hover, h2:hover, h2 span:hover, .streamster-title .prism-title:hover {
   cursor: default; }
 
 @media (max-width: 1600px) {
@@ -210,7 +210,7 @@ a {
     width: 80vw;
     margin: auto;
     display: flex; }
-    .Album-Page .album-page-ecouter-container h1 {
+    .Album-Page .album-page-ecouter-container .streamster-title {
       font-family: "Streamster", sans-serif;
       font-size: 9rem;
       color: #00DEFF;
@@ -219,8 +219,9 @@ a {
       margin: 4rem 0 0 0;
       text-shadow: 0 0 0 #00DEFF, 0 0 5px #450100, 0 0 15px #00DEFF, 0 0 30px #450100;
       transition: text-shadow 0.4s ease-in;
-      z-index: 10; }
-      .Album-Page .album-page-ecouter-container h1:hover {
+      z-index: 10;
+      font-weight: bold; }
+      .Album-Page .album-page-ecouter-container .streamster-title:hover {
         cursor: default;
         text-shadow: 0 0 10px #00DEFF, 0 0 25px #450100, 0 0 50px #00DEFF, 0 0 75px #450100; }
   .Album-Page .album-page-global-album-container {
@@ -240,19 +241,20 @@ a {
         background-color: rgba(0, 0, 0, 0.4);
         width: 100%;
         position: relative; }
-        .Album-Page .album-page-global-album-container .Album-Page-Container .album-content-header-background h2 {
+        .Album-Page .album-page-global-album-container .Album-Page-Container .album-content-header-background .prism-title {
+          display: block;
           font-family: "Prism", sans-serif;
-          /*background: linear-gradient(to right, #00DEFF , #FB00EE);*/
           color: #FB00EE;
           text-shadow: 0 0 0px #FB00EE, 0 0 5px #450100, 0 0 15px #FB00EE, 0 0 30px #450100;
           letter-spacing: 3px;
           font-size: 4rem;
           margin: 2rem 0 1rem 5rem;
-          line-height: 3.5rem; }
-          .Album-Page .album-page-global-album-container .Album-Page-Container .album-content-header-background h2 span {
+          line-height: 3.5rem;
+          font-weight: bold; }
+          .Album-Page .album-page-global-album-container .Album-Page-Container .album-content-header-background .prism-title span {
             font-size: 2rem;
             text-shadow: none; }
-        .Album-Page .album-page-global-album-container .Album-Page-Container .album-content-header-background h3 {
+        .Album-Page .album-page-global-album-container .Album-Page-Container .album-content-header-background .streamster-title {
           font-family: "Streamster", sans-serif;
           font-size: 4rem;
           color: #00DEFF;

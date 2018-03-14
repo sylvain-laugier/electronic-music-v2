@@ -13,7 +13,6 @@ class App extends Component {
       counterHome: 0,
     };
     this.toggleTransitionFromHome = this.toggleTransitionFromHome.bind(this);
-
   }
 
   toggleTransitionFromHome() {

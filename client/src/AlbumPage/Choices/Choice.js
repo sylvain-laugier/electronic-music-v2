@@ -2,24 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import PropTypesValue from '../../lib/PropTypesValues';
-
-const { albumShape, artistShape, richChoiceShape } = PropTypesValue;
+import { albumShape, richChoiceShape } from '../../lib/PropTypesValues';
 
 const Choice = ({
   originAlbum,
-  originArtist,
   richChoice,
   targetOrigin,
 }) => (
   <Link
-    key={richChoice.targetObj._id}
     to={{
       pathname: targetOrigin ? `/${originAlbum._id}` : `/${richChoice.targetObj._id}`,
       state: {
         originAlbum,
-        originArtist,
-        richChoice: [richChoice],
+        richChoice,
       },
     }}
   >
@@ -35,7 +30,6 @@ Choice.defaultProps = {
 
 Choice.propTypes = {
   originAlbum: PropTypes.shape(albumShape).isRequired,
-  originArtist: PropTypes.shape(artistShape).isRequired,
   richChoice: PropTypes.shape(richChoiceShape).isRequired,
   targetOrigin: PropTypes.bool,
 };

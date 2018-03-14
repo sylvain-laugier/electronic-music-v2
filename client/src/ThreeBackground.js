@@ -1,7 +1,7 @@
 import React from 'react';
 import React3 from 'react-three-renderer';
+import PropTypes from 'prop-types';
 import * as THREE from 'three';
-import ReactDOM from 'react-dom';
 
 const helper = {
   easeInOutQuint: t => t<.5 ? 4*t*t*t : (t-1)*(2*t-2)*(2*t-2)+1,
@@ -14,23 +14,23 @@ export default class ThreeBackground extends React.Component {
     // React will think that things have changed when they have not.
 
     this.state = {
-      cubeRotation: new THREE.Euler(0,0,0),
+      cubeRotation: new THREE.Euler(0, 0, 0),
       cameraPosition: new THREE.Vector3(0, 0, 3),
       counter: 120,
       counterHome: 0,
     };
 
     this.incrementCountHome = () => {
-      this.setState({
-        counterHome: this.state.counterHome += 1,
-      });
-    }
+      this.setState(prevState => ({
+        counterHome: prevState.counterHome + 1,
+      }));
+    };
 
     this.onAnimate = () => {
       // we will get this callback every frame      // pretend cubeRotation is immutable.
       // this helps with updates and pure rendering.
       // React will be sure that the rotation has now updated.
-      if (this.props.transitionFromHome && this.state.counterHome < this.state.counter ) {
+      if (this.props.transitionFromHome && this.state.counterHome < this.state.counter) {
         this.incrementCountHome();
         const x = this.state.counterHome / this.state.counter;
         const speed = helper.easeInOutQuint(x) - helper.easeInOutQuint(x - 0.01);
@@ -44,20 +44,17 @@ export default class ThreeBackground extends React.Component {
       } else if (this.props.transitionFromHome) {
         if (this.state.cameraPosition.z < -15) {
           this.setState({
-            cameraPosition: new THREE.Vector3(0,0,3),
-          })
+            cameraPosition: new THREE.Vector3(0, 0, 3),
+          });
         } else {
-          this.setState({
-            cameraPosition: new THREE.Vector3(0, this.state.cameraPosition.y += (0.0003825*2), this.state.cameraPosition.z -= 0.002),
-          })
+          this.setState(prevState => ({
+            cameraPosition: new THREE.Vector3(
+              0, prevState.cameraPosition.y + (0.0003825 * 2),
+              prevState.cameraPosition.z - 0.002,
+            ),
+          }));
         }
-
       }
-
-    /*this.setState({
-      cameraPosition: new THREE.Vector3(0, 0, this.state.cameraPosition.z += 0.01),
-    });*/
-
     };
   }
 
@@ -121,3 +118,7 @@ export default class ThreeBackground extends React.Component {
     </React3>);
   }
 }
+
+ThreeBackground.propTypes = {
+  transitionFromHome: PropTypes.bool.isRequired,
+};
