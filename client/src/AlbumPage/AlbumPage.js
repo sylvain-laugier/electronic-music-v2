@@ -35,14 +35,14 @@ export default class AlbumPage extends Component {
   }
   renderSlidingSection() {
     return (
-      <ReactCSSTransitionGroup
+      /*<ReactCSSTransitionGroup
         transitionName="example"
         transitionEnterTimeout={600}
         transitionLeaveTimeout={600}
         transitionAppearTimeout={600}
         className="temporary-slide-container"
         component="div"
-      >
+      >*/
         <div key={this.props.album._id} className="album-page-global-album-container">
           {this.showPreviousAlbum()}
           <CurrentAlbum album={this.props.album} />
@@ -51,7 +51,7 @@ export default class AlbumPage extends Component {
             originAlbum={this.props.album}
           />
         </div>
-      </ReactCSSTransitionGroup>
+      /*</ReactCSSTransitionGroup>*/
     );
   }
   render() {

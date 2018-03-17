@@ -8,15 +8,16 @@ const Choice = ({
   originAlbum,
   richChoice,
   targetOrigin,
-}) => (
+}, context) => (
   <Link
     to={{
-      pathname: targetOrigin ? `/${originAlbum._id}` : `/${richChoice.targetObj._id}`,
+      pathname: targetOrigin ? null : `/${richChoice.targetObj._id}`,
       state: {
         originAlbum,
         richChoice,
       },
     }}
+    onClick={targetOrigin ? context.router.history.goBack : null}
   >
     <div className="button button-album-page">
       <p>{richChoice.message}</p>
@@ -27,6 +28,8 @@ const Choice = ({
 Choice.defaultProps = {
   targetOrigin: false,
 };
+
+Choice.contextTypes = {router: PropTypes.object};
 
 Choice.propTypes = {
   originAlbum: PropTypes.shape(albumShape).isRequired,
