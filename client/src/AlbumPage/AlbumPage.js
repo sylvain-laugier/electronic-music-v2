@@ -7,9 +7,9 @@ import { albumShape, richChoiceShape } from '../lib/PropTypesValues';
 
 import AlbumPageHeader from './AlbumPageHeader';
 import CurrentAlbum from './AlbumContent/CurrentAlbum';
-import PreviousAlbum from './AlbumContent/PreviousAlbum';
 import ChoiceContainer from './Choices/ChoiceContainer';
 import StreamsterTitle from './AlbumHeaders/StreamsterTitle';
+import GoBack from './Choices/GoBack';
 
 const helpers = {
   objectIsEmpty: obj => Object.keys(obj).length === 0 && obj.constructor === Object,
@@ -19,39 +19,39 @@ export default class AlbumPage extends Component {
   constructor(props) {
     super(props);
     this.renderSlidingSection = this.renderSlidingSection.bind(this);
-    this.showPreviousAlbum = this.showPreviousAlbum.bind(this);
+    this.setReverseAnim = this.setReverseAnim.bind(this);
+    this.state = {
+      reverseAnim: true,
+    };
   }
-
-  showPreviousAlbum() {
-    if (helpers.objectIsEmpty(this.props.previousAlbum)) {
-      return null;
-    }
-    return (
-      <PreviousAlbum
-        album={this.props.previousAlbum}
-        richChoice={this.props.previousChoice}
-      />
-    );
+  setReverseAnim(bool, cb) {
+    this.setState({
+      reverseAnim: bool,
+    }, () => cb());
   }
   renderSlidingSection() {
     return (
-      /*<ReactCSSTransitionGroup
-        transitionName="example"
+      <ReactCSSTransitionGroup
+        transitionName={this.state.reverseAnim ? 'albumAnimationLeft' : 'albumAnimationRight'}
         transitionEnterTimeout={600}
         transitionLeaveTimeout={600}
         transitionAppearTimeout={600}
+        transitionAppear
         className="temporary-slide-container"
         component="div"
-      >*/
-        <div key={this.props.album._id} className="album-page-global-album-container">
-          {this.showPreviousAlbum()}
-          <CurrentAlbum album={this.props.album} />
-          <ChoiceContainer
-            richChoices={this.props.richChoices}
-            originAlbum={this.props.album}
-          />
+      >
+        <div key={this.props.album._id} className="transistion-slide-container">
+          <div className="album-page-global-album-container">
+            <GoBack setReverseAnim={this.setReverseAnim} />
+            <CurrentAlbum album={this.props.album} />
+            <ChoiceContainer
+              richChoices={this.props.richChoices}
+              originAlbum={this.props.album}
+              setReverseAnim={this.setReverseAnim}
+            />
+          </div>
         </div>
-      /*</ReactCSSTransitionGroup>*/
+      </ReactCSSTransitionGroup>
     );
   }
   render() {

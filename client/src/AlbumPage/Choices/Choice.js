@@ -5,31 +5,24 @@ import { Link } from 'react-router-dom';
 import { albumShape, richChoiceShape } from '../../lib/PropTypesValues';
 
 const Choice = ({
-  originAlbum,
   richChoice,
-  targetOrigin,
+  setReverseAnim,
 }, context) => (
-  <Link
-    to={{
-      pathname: targetOrigin ? null : `/${richChoice.targetObj._id}`,
-      state: {
-        originAlbum,
-        richChoice,
-      },
-    }}
-    onClick={targetOrigin ? context.router.history.goBack : null}
-  >
-    <div className="button button-album-page">
+    <div
+      className="button button-album-page"
+      onClick={() => (
+        setReverseAnim(false, () => context.router.history.push(`/${richChoice.targetObj._id}`))
+      )}
+    >
       <p>{richChoice.message}</p>
     </div>
-  </Link>
 );
 
 Choice.defaultProps = {
   targetOrigin: false,
 };
 
-Choice.contextTypes = {router: PropTypes.object};
+Choice.contextTypes = { router: PropTypes.object };
 
 Choice.propTypes = {
   originAlbum: PropTypes.shape(albumShape).isRequired,

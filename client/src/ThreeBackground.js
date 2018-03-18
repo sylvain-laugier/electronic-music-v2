@@ -18,6 +18,7 @@ export default class ThreeBackground extends React.Component {
       cameraPosition: new THREE.Vector3(0, 0, 3),
       counter: 120,
       counterHome: 0,
+      rotationComplete: false,
     };
 
     this.incrementCountHome = () => {
@@ -42,6 +43,11 @@ export default class ThreeBackground extends React.Component {
           ),
         });
       } else if (this.props.transitionFromHome) {
+        if (!this.state.rotationComplete) {
+          this.setState(prevState => ({
+            rotationComplete: !prevState.rotationComplete,
+          }));
+        }
         if (this.state.cameraPosition.z < -15) {
           this.setState({
             cameraPosition: new THREE.Vector3(0, 0, 3),

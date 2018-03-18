@@ -209,7 +209,8 @@ a {
   .Album-Page .album-page-ecouter-container {
     width: 80vw;
     margin: auto;
-    display: flex; }
+    display: flex;
+    animation: fadein 400ms ease-in; }
     .Album-Page .album-page-ecouter-container .streamster-title {
       font-family: "Streamster", sans-serif;
       font-size: 9rem;
@@ -231,6 +232,20 @@ a {
     justify-content: space-evenly;
     /*album-page-container */
     /*album-page-choice-container*/ }
+    .Album-Page .album-page-global-album-container .back-button-container {
+      height: 340px;
+      display: flex;
+      flex-flow: column;
+      justify-content: space-evenly; }
+      .Album-Page .album-page-global-album-container .back-button-container .back-button {
+        width: 10rem;
+        border-radius: 50%;
+        font-weight: bold;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 5rem; }
     .Album-Page .album-page-global-album-container .Album-Page-Container {
       display: flex;
       width: 700px;
@@ -308,24 +323,48 @@ a {
   width: 200vw;
   overflow-x: hidden; }
 
-.example-enter {
+.transistion-slide-container {
+  width: 100vw; }
+
+.albumAnimationRight-enter {
   transform: translate(0vw); }
 
-.example-enter.example-enter-active {
+.albumAnimationRight-enter.albumAnimationRight-enter-active {
   transform: translate(-100vw);
   transition: transform 600ms ease; }
 
-.example-leave {
+.albumAnimationRight-leave {
   transform: translate(0vw); }
 
-.example-leave.example-leave-active {
+.albumAnimationRight-leave.albumAnimationRight-leave-active {
   transform: translate(-100vw);
   transition: transform 600ms ease; }
 
-.example-appear {
+.albumAnimationRight-appear {
   transform: translate(100vw); }
 
-.example-appear.example-appear-active {
+.albumAnimationRight-appear.albumAnimationRight-appear-active {
+  transform: translate(0vw);
+  transition: transform 600ms ease; }
+
+.albumAnimationLeft-enter {
+  transform: translate(-200vw); }
+
+.albumAnimationLeft-enter.albumAnimationLeft-enter-active {
+  transform: translate(-100vw);
+  transition: transform 600ms ease; }
+
+.albumAnimationLeft-leave {
+  transform: translate(0vw); }
+
+.albumAnimationLeft-leave.albumAnimationLeft-leave-active {
+  transform: translate(100vw);
+  transition: transform 600ms ease; }
+
+.albumAnimationLeft-appear {
+  transform: translate(100vw); }
+
+.albumAnimationLeft-appear.albumAnimationLeft-appear-active {
   transform: translate(0vw);
   transition: transform 600ms ease; }
 
@@ -334,3 +373,9 @@ a {
     text-shadow: 0 0 0px #FB00EE, 0 0 5px #450100, 0 0 15px #FB00EE, 0 0 30px #450100; }
   to {
     text-shadow: 0 0 10px #FB00EE, 0 0 25px #450100, 0 0 25px #FB00EE, 0 0 50px #450100; } }
+
+@keyframes fadein {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }

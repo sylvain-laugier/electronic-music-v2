@@ -8,7 +8,7 @@ const fontSizeGenerator = (size) => {
   if (size <= 10) {
     return {
       fontSize: '4rem',
-      top: '4rem',
+      top: '2rem',
     };
   }
   const difference = ((size - 10) * 2) / 10;
@@ -31,7 +31,7 @@ export default class AlbumContentHeader extends Component {
     this.state = {
       styleArtist: {
         fontSize: '4rem',
-        top: '4rem',
+        top: '2rem',
       },
     };
     this.renderHeader = this.renderHeader.bind(this);

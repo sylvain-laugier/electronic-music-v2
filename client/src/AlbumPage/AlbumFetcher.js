@@ -14,12 +14,14 @@ export default class AlbumFetcher extends Component {
       previousAlbum: {},
       richChoices: [],
       previousChoice: {},
+      loading: true,
     };
     this.updateComponent = this.updateComponent.bind(this);
   }
 
   componentDidMount() {
-    setTimeout(() => this.updateComponent(this.props), 100);
+    this.updateComponent(this.props);
+    setTimeout(() => this.setState({ loading: false }), 1500);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -91,8 +93,9 @@ export default class AlbumFetcher extends Component {
       previousAlbum,
       richChoices,
       previousChoice,
+      loading,
     } = this.state;
-    return (
+    return loading ? null : (
       <AlbumPage
         album={album}
         previousAlbum={previousAlbum}

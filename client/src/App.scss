@@ -322,7 +322,7 @@ a {
     width:80vw;
     margin:auto;
     display: flex;
-
+    animation: fadein 400ms ease-in;
 
     .streamster-title {
       font-family: $streamster;
@@ -356,6 +356,24 @@ a {
     display: flex;
     align-items: flex-end;
     justify-content: space-evenly;
+
+    .back-button-container {
+      height: 340px;
+      display: flex;
+      flex-flow: column;
+      justify-content: space-evenly;
+
+      .back-button {
+        width:10rem;
+        border-radius:50%;
+        font-weight:bold;
+        cursor:pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size:5rem;
+      }
+    }
 
     .Album-Page-Container {
       display: flex;
@@ -485,32 +503,63 @@ a {
   overflow-x:hidden;
 }
 
-.example-enter {
+.transistion-slide-container {
+  width:100vw;
+}
+
+.albumAnimationRight-enter {
   transform: translate(0vw);
 }
 
-.example-enter.example-enter-active {
+.albumAnimationRight-enter.albumAnimationRight-enter-active {
   transform: translate(-100vw);
   transition: transform 600ms ease;
 }
 
-.example-leave {
+.albumAnimationRight-leave {
   transform: translate(0vw);
 }
 
-.example-leave.example-leave-active {
+.albumAnimationRight-leave.albumAnimationRight-leave-active {
   transform: translate(-100vw);
  transition: transform 600ms ease;
 }
 
-.example-appear {
+.albumAnimationRight-appear {
   transform: translate(100vw);
 }
 
-.example-appear.example-appear-active {
+.albumAnimationRight-appear.albumAnimationRight-appear-active {
   transform: translate(0vw);
  transition: transform 600ms ease ;
 }
+
+.albumAnimationLeft-enter {
+  transform: translate(-200vw);
+}
+
+.albumAnimationLeft-enter.albumAnimationLeft-enter-active {
+  transform: translate(-100vw);
+  transition: transform 600ms ease;
+}
+
+.albumAnimationLeft-leave {
+  transform: translate(0vw);
+}
+
+.albumAnimationLeft-leave.albumAnimationLeft-leave-active {
+  transform: translate(100vw);
+ transition: transform 600ms ease;
+}
+.albumAnimationLeft-appear {
+  transform: translate(100vw);
+}
+
+.albumAnimationLeft-appear.albumAnimationLeft-appear-active {
+  transform: translate(0vw);
+ transition: transform 600ms ease ;
+}
+
 @-webkit-keyframes neon1 {
   from {
     text-shadow:
@@ -526,4 +575,9 @@ a {
       0 0 25px #FB00EE,
       0 0 50px #450100;
   }
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }

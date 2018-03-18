@@ -5,7 +5,7 @@ import { albumShape, richChoiceShape } from '../../lib/PropTypesValues';
 
 import Choice from './Choice';
 
-const ChoiceContainer = ({ originAlbum, richChoices }) => {
+const ChoiceContainer = ({ originAlbum, richChoices, setReverseAnim }) => {
   if (richChoices.length > 0) {
     return (
       <div className="album-page-choice-container">
@@ -13,6 +13,7 @@ const ChoiceContainer = ({ originAlbum, richChoices }) => {
           <Choice
             originAlbum={originAlbum}
             richChoice={richChoice}
+            setReverseAnim={setReverseAnim}
             key={richChoice.targetObj._id}
           />
           ))}

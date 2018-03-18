@@ -53,6 +53,7 @@ class App extends Component {
               return (<AlbumFetcher
                 location={location}
                 match={match}
+                fromHome={this.state.transitionFromHome}
                 toggleTransitionFromHome={this.toggleTransitionFromHome}
               />);
             }
