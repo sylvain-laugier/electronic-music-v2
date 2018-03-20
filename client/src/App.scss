@@ -230,7 +230,7 @@ a {
 .home-button-container {
   display:flex;
   justify-content: space-between;
-  
+
 }
 .button {
   background: #FB00EE;
@@ -264,6 +264,39 @@ a {
 
 .button h3 {
   margin:auto;
+}
+
+.footer {
+  width:100vw;
+  height:5vh;
+  color:#fff;
+  background-color:rgba(0,0,0,0.4);
+  padding:10px;
+  position:absolute;
+  bottom:0px;
+  left:0px;
+  display: flex;
+  justify-content: flex-end;
+  padding-right:15rem;
+  align-items: center;
+  transition: all 300ms ease-out;
+
+  &:hover {
+    cursor:pointer;
+    background-color:rgba(0,0,0,0.8);
+  }
+
+  p {
+    margin:0;
+    font-family: $prism;
+    font-weight:bold;
+    font-size:2rem;
+  }
+}
+.footer-open {
+  height:50vh;
+  background-color:rgba(0,0,0,0.8);
+  justify-content: center;
 }
 
 
