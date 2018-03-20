@@ -163,7 +163,7 @@ a {
 }
 
 .home-headers-container {
-  min-height: 533px;
+  min-height: 450px;
 }
 
 .home-header-part-1 {
@@ -220,11 +220,17 @@ a {
     0 0 50px #00DEFF,
     0 0 75px #450100;
 }*/
-
+.explanation-container {
+  h2 {
+    font-family: $prism;
+    font-size:3rem;
+    color:#fff;
+  }
+}
 .home-button-container {
   display:flex;
   justify-content: space-between;
-  width:30vw;
+  
 }
 .button {
   background: #FB00EE;

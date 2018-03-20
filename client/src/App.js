@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 import ThreeBackground from './ThreeBackground';
 import AlbumFetcher from './AlbumPage/AlbumFetcher';
-import Home from './Home';
+import Home from './HomePage/Home';
 
 class App extends Component {
   constructor(props) {

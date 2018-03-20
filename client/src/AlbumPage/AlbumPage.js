@@ -59,7 +59,7 @@ export default class AlbumPage extends Component {
       <div className="Album-Page">
         <Link to="/"><AlbumPageHeader /></Link>
         <StreamsterTitle classNameProp="album-page-ecouter-container">
-          Essayez d'écouter
+          Try To Listen To...
         </StreamsterTitle>
         {this.renderSlidingSection()}
       </div>

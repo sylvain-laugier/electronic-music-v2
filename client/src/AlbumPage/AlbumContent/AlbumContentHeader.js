@@ -54,7 +54,7 @@ export default class AlbumContentHeader extends Component {
     return (
       <div className="album-content-header-background" >
         <PrismTitle>
-          <div>{`${this.props.albumName} `}<br /> <span>par</span></div>
+          <div>{`${this.props.albumName} `}<br /> <span>by</span></div>
         </PrismTitle>
         <StreamsterTitle
           style={this.state.styleArtist}

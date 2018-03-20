@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+const style = {
+  visibility: 'hidden',
+}
 const GoBack = (props, context) => (
-  <div className="back-button-container">
+  <div className="back-button-container" style={context.router.history.length > 2 ? {} : style}>
     <div
       className="button back-button"
       onClick={() => (

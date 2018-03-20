@@ -106,7 +106,7 @@ a {
   margin: auto; }
 
 .home-headers-container {
-  min-height: 533px; }
+  min-height: 450px; }
 
 .home-header-part-1 {
   font-family: "Prism", sans-serif;
@@ -148,10 +148,14 @@ a {
     0 0 50px #00DEFF,
     0 0 75px #450100;
 }*/
+.explanation-container h2 {
+  font-family: "Prism", sans-serif;
+  font-size: 3rem;
+  color: #fff; }
+
 .home-button-container {
   display: flex;
-  justify-content: space-between;
-  width: 30vw; }
+  justify-content: space-between; }
 
 .button {
   background: #FB00EE;
