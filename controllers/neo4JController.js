@@ -1,4 +1,4 @@
-const neo4j = require('neo4j-driver').v1;
+const neo4j = require('../node_modules/neo4j-driver/lib/index.js').v1;
 const Artist = require('../models/Artist.js');
 const Album = require('../models/Album.js');
 
