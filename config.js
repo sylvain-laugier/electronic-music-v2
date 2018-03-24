@@ -2,9 +2,9 @@
 
 const config = {
   spotifyApi: {
-    "clientId": "efacfd669a324644bd5cced88d729af3",
-    "clientSecret": "8ed67c91bfae4042b5ded02302d365d3",
-    redirectUri: 'http://localhost:3001//callback/',
+    "clientId": "74a8592010044440a2fd8497d8f23c1e",
+    "clientSecret": "836d5f82aebe439e9381585e264c35b0",
+    redirectUri: 'https://glacial-everglades-48856.herokuapp.com/callback/',
   },
   clientCredentials: {
     admin: "p3KcEpnXGDDBtKsxGdtaJdEA7H3Qmt7TEqbHxaeUhEBdkQqwVS4P7nVF6YZuk47jxMX9vMz9gFg2qm8Xuu63uvRtcup5dRAfxP7C9ptmcHDBPknG9TzBPzLB8b6SCkeZ",

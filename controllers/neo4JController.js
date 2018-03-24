@@ -6,7 +6,7 @@ const config = require('../config.js');
 
 const driver = neo4j.driver(config.neo4jCredentials.url, neo4j.auth.basic(config.neo4jCredentials.user, config.neo4jCredentials.pwd));
 driver.onCompleted = () => {
-  console.log('connected to database');
+  console.log(`connected to database : ${config.neo4jCredentials.url}`);
 };
 
 driver.onError = error => {
