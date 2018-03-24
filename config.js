@@ -1,5 +1,8 @@
 // this is where you set everything up
 
+if (process.env.NODE_ENV !== 'production') {
+  var test = require('dotenv').load();
+}
 const config = {
   spotifyApi: {
     "clientId": process.env.SPOTIFY_ID,
