@@ -2,7 +2,9 @@ const neo4j = require('neo4j-driver').v1;
 const Artist = require('../models/Artist.js');
 const Album = require('../models/Album.js');
 
-const driver = neo4j.driver('bolt://localhost:7687', neo4j.auth.basic("developer", "azerty"));
+const config = require('../config.js');
+
+const driver = neo4j.driver(config.neo4jCredentials.url, neo4j.auth.basic(config.neo4jCredentials.user, config.neo4jCredentials.pwd));
 driver.onCompleted = () => {
   console.log('connected to database');
 };

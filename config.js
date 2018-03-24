@@ -11,7 +11,12 @@ const config = {
     client: "RTEvkg5VHe86AhRn3S77KdHDRXdnDMj959EXYKmK4P8wbYGtjPAGbApFxrMpb4C7bY7mMWRCjy2T4VnSD72aHAdfmA4dFkGkj9JL94nzzAghEpkQAuT9ZWhpBc2qD8WB",
     postMan: "JbAxPN6LUZddh7aeexkJwZLCgxfGzPVDyBFMP3rZZ4ED5AzujDta9e6Tv3b69KNEmBQ8WHDtULjpcsRM8mkaCsyhYp4xFXCz4kUznqN5S6ryHjbPJ3NL6r5LxFtdtPrj",
   },
-  key: "vTnWFQBYfWcnvENttMajWsqds5rgNdS7DYMesYPwZGv7BxkqF6zsGppyQCv9ELJvnYJ6q6x6P6JTLfhRmLCMpFTJzsaPnNCsLYgmXw98qSwAAFfCfeYb3mJwVLWxHgzeMTnwrwxuvtRZ5nGPmzgYymnvVLDAhrH9dBMLHJ4Uv95a7jCvHUfKcJjqa5BLaUNppZthqeY3eWMfnJw8JkbVmnmKafnEzhMbdATbNKSvPzvPVrRUcVT3SpsBeYPLPeay"
+  key: "vTnWFQBYfWcnvENttMajWsqds5rgNdS7DYMesYPwZGv7BxkqF6zsGppyQCv9ELJvnYJ6q6x6P6JTLfhRmLCMpFTJzsaPnNCsLYgmXw98qSwAAFfCfeYb3mJwVLWxHgzeMTnwrwxuvtRZ5nGPmzgYymnvVLDAhrH9dBMLHJ4Uv95a7jCvHUfKcJjqa5BLaUNppZthqeY3eWMfnJw8JkbVmnmKafnEzhMbdATbNKSvPzvPVrRUcVT3SpsBeYPLPeay",
+  neo4jCredentials: {
+    url: "bolt://hobby-bbcebcehkkokgbkelefnmbal.dbs.graphenedb.com:24786",
+    user: "app91814569-bWcSay",
+    pwd: "b.wDDD0lyusUhy.LmNBVMmXG1LFRlMP"
+  }
 };
 
 module.exports = config;
