@@ -15,6 +15,7 @@ export default class AlbumFetcher extends Component {
       richChoices: [],
       previousChoice: {},
       loading: true,
+      goBackButton: false,
     };
     this.updateComponent = this.updateComponent.bind(this);
   }
@@ -64,6 +65,9 @@ export default class AlbumFetcher extends Component {
         })
           .then(res => res.json())
           .then((choices) => {
+            this.setState({
+              goBackButton: this.context.router.history.length > 2,
+            });
             if (choices.length > 0) {
               const richChoices = choices
                 .map(choice => choice._fields[0])
@@ -94,6 +98,7 @@ export default class AlbumFetcher extends Component {
       richChoices,
       previousChoice,
       loading,
+      goBackButton,
     } = this.state;
     return loading ? null : (
       <AlbumPage
@@ -101,10 +106,13 @@ export default class AlbumFetcher extends Component {
         previousAlbum={previousAlbum}
         richChoices={richChoices}
         previousChoice={previousChoice}
+        goBackButton={goBackButton}
       />
     );
   }
 }
+
+AlbumFetcher.contextTypes = { router: PropTypes.object };
 
 AlbumFetcher.propTypes = {
   match: PropTypes.shape({

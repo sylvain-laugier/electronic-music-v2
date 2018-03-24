@@ -42,7 +42,7 @@ export default class AlbumPage extends Component {
       >
         <div key={this.props.album._id} className="transistion-slide-container">
           <div className="album-page-global-album-container">
-            <GoBack setReverseAnim={this.setReverseAnim} />
+            <GoBack display={this.props.goBackButton}setReverseAnim={this.setReverseAnim} />
             <CurrentAlbum album={this.props.album} />
             <ChoiceContainer
               richChoices={this.props.richChoices}
@@ -77,4 +77,5 @@ AlbumPage.propTypes = {
   richChoices: PropTypes.arrayOf(PropTypes.shape(richChoiceShape)).isRequired,
   previousAlbum: PropTypes.shape(albumShape),
   previousChoice: PropTypes.shape(richChoiceShape),
+  goBackButton: PropTypes.bool.isRequired,
 };
