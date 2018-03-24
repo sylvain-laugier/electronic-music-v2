@@ -4,9 +4,9 @@ const Album = require('../models/Album.js');
 
 const config = require('../config.js');
 
-const driver = neo4j.driver(config.neo4jCredentials.url, neo4j.auth.basic(config.neo4jCredentials.user, config.neo4jCredentials.pwd));
+const driver = neo4j.driver(process.env.GRAPHENEDB_BOLT_URL, neo4j.auth.basic(config.neo4jCredentials.user, config.neo4jCredentials.pwd));
 driver.onCompleted = () => {
-  console.log(`connected to database : ${config.neo4jCredentials.url}`);
+  console.log(`connected to database : ${process.env.GRAPHENEDB_BOLT_URL}`);
 };
 
 driver.onError = error => {
