@@ -16,9 +16,10 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/:id', function(req, res, next) {
-  neo4j.getNodeById(req.params.id, 'Album', (result) => {
+  setTimeout(() => neo4j.getNodeById(req.params.id, 'Album', (result) => {
     res.json(result);
-  })
+  }), 2000)
+
 
 });
 
