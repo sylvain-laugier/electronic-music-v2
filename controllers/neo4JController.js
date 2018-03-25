@@ -29,6 +29,7 @@ module.exports = {
   },
   getNodeById: function(id, label, callback){
     const session = driver.session();
+    console.log(`is getting called for ${id} in label ${label}`)
     const resultPromise = session.run(
       `MATCH (n:${label})
       WHERE n._id = '${id}'
@@ -41,6 +42,7 @@ module.exports = {
       const node = singleRecord.get(0);
       return callback(node.properties);
     }).catch(err => {
+      console.log(`err : ${err}`);
       return callback(err);
     });
   },
