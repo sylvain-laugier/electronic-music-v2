@@ -36,6 +36,7 @@ module.exports = {
     );
     resultPromise.then(result => {
       session.close();
+      console.log(result);
       const singleRecord = result.records[0];
       const node = singleRecord.get(0);
       return callback(node.properties);
