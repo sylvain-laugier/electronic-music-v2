@@ -181,7 +181,7 @@ module.exports = {
     const resultPromise = session.run(
       `Match (n)-[r]->(related)
        WHERE n._id = '${origin}' AND related._id = '${target}'
-       SET r.message = '${newMessage}'
+       SET r.message = "${newMessage}"
        RETURN r`
     );
 
