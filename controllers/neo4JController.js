@@ -176,6 +176,8 @@ module.exports = {
   },
   updateRelationshipMessage: function(origin, target, newMessage, callback) {
     const session = driver.session();
+    console.log('hi');
+
     const resultPromise = session.run(
       `Match (n)-[r]->(related)
        WHERE n._id = '${origin}' AND related._id = '${target}'
@@ -189,6 +191,7 @@ module.exports = {
       console.log(result);
       return callback(result.records[0]._fields[0].properties);
     }).catch(err => {
+      console.log(err);
       return callback(err);
     })
   }
