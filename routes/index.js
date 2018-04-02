@@ -9,7 +9,7 @@ var authMiddleware = auth().middleware;
 
 router.use(authMiddleware);
 router.get('/', function(req, res, next) {
-  res.send('welcome');
+  res.json({message: 'wake up'});
 
 });
 
