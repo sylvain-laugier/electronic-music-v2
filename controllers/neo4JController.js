@@ -27,6 +27,20 @@ module.exports = {
       return callback(err);
     });
   },
+  getRandomNodeByLabel: function(label, callback){
+    const session = driver.session();
+    const resultPromise = session.run(
+      `MATCH (n:${label})
+      RETURN n`
+    );
+    resultPromise.then(result => {
+      session.close();
+      const random = Math.floor(Math.random() * Math.floor(result.records.length));
+      return callback(result.records[random]);
+    }).catch(err => {
+      return callback(err);
+    });
+  },
   getNodeById: function(id, label, callback){
     const session = driver.session();
     const resultPromise = session.run(

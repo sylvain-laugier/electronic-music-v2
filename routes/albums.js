@@ -14,7 +14,11 @@ router.get('/', function(req, res, next) {
   })
 
 });
-
+router.get('/random', function(req, res, next) {
+  neo4j.getRandomNodeByLabel('Album', (result) => {
+    res.json(result);
+  })
+});
 router.get('/:id', function(req, res, next) {
   neo4j.getNodeById(req.params.id, 'Album', (result) => {
     res.json(result);
