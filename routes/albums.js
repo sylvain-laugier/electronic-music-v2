@@ -76,6 +76,7 @@ router.post('/add-album-relationship', function(req, res, next) {
 
 router.post('/update-relationship-message', function(req, res, next) {
   var property = req.body;
+  console.log({property});
   neo4j.updateRelationshipMessage(property.origin, property.target, property.newMessage, function(result){
     res.json(result);
   });
