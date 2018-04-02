@@ -52,11 +52,11 @@ router.get('/get-spotify/:id', function(req, res, next) {
 });
 
 router.get('/search-spotify/:searchTerm', function(req, res, next) {
-  console.log('hi');
   spotify.searchForAlbums(req.params.searchTerm)
     .then(function(albumRes){
       res.json(albumRes);
-    });
+    })
+    .catch(err => console.log(err));
 
 });
 
@@ -73,5 +73,14 @@ router.post('/add-album-relationship', function(req, res, next) {
     res.json(result);
   });
 })
+
+router.post('/update-relationship-message', function(req, res, next) {
+  var property = req.body;
+  neo4j.updateRelationshipMessage(property.origin, property.target, property.newMessage, function(result){
+    res.json(result);
+  });
+})
+
+
 
 module.exports = router;
