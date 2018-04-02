@@ -186,6 +186,7 @@ module.exports = {
     resultPromise.then(result => {
       session.close();
       console.log('message updated');
+      console.log(result);
       return callback(result.records[0]._fields[0].properties);
     }).catch(err => {
       return callback(err);
